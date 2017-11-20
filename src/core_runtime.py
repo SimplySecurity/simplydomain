@@ -15,11 +15,12 @@ class CoreRuntime(module_loader.LoadModules,
         """
         Init class and passed objects.
         """
+        self.config = config
         module_loader.LoadModules.__init__(self)
         # core_printer.CorePrinters.__init__(self)
         core_processes.CoreProcess.__init__(self)
         self.logger = logger
-        self.config = config
+
 
     def list_modules(self):
         """
@@ -54,12 +55,14 @@ class CoreRuntime(module_loader.LoadModules,
                                        "[!] WARNING: Press CTRL+C AGAIN to bypass and MANUALLY cleanup")
                 try:
                     time.sleep(0.1)
+                    self.stop_threads()
                     self.kill_processes()
                     sys.exit(0)
                 except KeyboardInterrupt:
                     self.list_processes()
                     sys.exit(0)
         self.join_processes()
+        self.join_threads()
 
 
 

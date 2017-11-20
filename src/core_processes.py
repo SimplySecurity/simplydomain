@@ -1,5 +1,8 @@
 import multiprocessing as mp
+import threading
+import time
 from . import core_printer
+from . import core_serialization
 
 class CoreProcess(core_printer.CorePrinters):
     """
@@ -13,15 +16,18 @@ class CoreProcess(core_printer.CorePrinters):
 
         Process creation steps:
         1) populate_task_queue() - with modules
-        2) 
         """
         core_printer.CorePrinters.__init__(self)
         self.procs = []
+        self.threads = []
         self.processors = mp.cpu_count()
         self.mp = mp
         self.mpq = self.mp.Queue()
         self.task_queue = mp.Queue()
         self.task_output_queue = mp.Queue()
+
+        # output handlers
+        self.serialize_json_output = core_serialization.SerializeJSON(self.config)
 
     def _configure_mp(self):
         """
@@ -47,6 +53,23 @@ class CoreProcess(core_printer.CorePrinters):
         for p in range(self.processors):
             self.task_queue.put(None)
 
+    def _task_output_queue_consumer(self):
+        """
+        Consumes task_output_queue data at set interval,
+        to be run as a Thread at a interval of 1 sec. If this res
+        is to low queue mem could lock.
+        :return: NONE
+        """
+        while True:
+            item = self.task_output_queue.get()
+            if item:
+                self.serialize_json_output.add_subdomain(item)
+            if item == None:
+                self.serialize_json_output.print_json_subdomains()
+                break
+            if self.task_output_queue.empty():
+                time.sleep(0.1)
+
     def populate_task_queue(self, modules):
         """
         Populats the queue of module objects to be executed.
@@ -70,6 +93,44 @@ class CoreProcess(core_printer.CorePrinters):
         # allow GC to pick up and flush pipe
         self.task_queue.close()
 
+    def _start_threads(self):
+        """
+        Function to handle threads to be spawned.
+        :return: NONE
+        """
+        self.threads.append(threading.Thread(
+            target=self._task_output_queue_consumer))
+
+        for t in self.threads:
+            # TODO: Fix issue where threads die before job is parsed
+            # TODO: Make some threads daemon?
+            # t.daemon = True
+            t.start()
+
+    def stop_threads(self):
+        """
+        Attempt to clean up threads before bail.
+        :return: NONE
+        """
+        self.task_output_queue.put(None)
+        for t in self.threads:
+            t.join
+        self.print_red("[!] All consumer threads have been joined")
+
+    def join_threads(self):
+        """
+        Attempt to clean up threads before bail.
+        :return: NONE
+        """
+        self.task_output_queue.put(None)
+        while True:
+            if self.task_output_queue.empty() == True:
+                break
+            else:
+                time.sleep(1)
+        for t in self.threads:
+            t.join
+
     def start_processes(self):
         """
         Executes all procs with a given module and
@@ -81,6 +142,7 @@ class CoreProcess(core_printer.CorePrinters):
         :return: BOOL 
         """
         queues = []
+        self._start_threads()
         for _ in range(self.processors):
             self.start_process(self.config, self.task_queue, self.task_output_queue)
         for p in self.procs:
@@ -116,6 +178,8 @@ class CoreProcess(core_printer.CorePrinters):
         while True:
             # loop to execute taskings from taskQ
             q = queue_dict['task_queue'].get()
+            if q == None:
+                break
             dynamic_module = self.modules[q]
             try:
                 dm = dynamic_module.DynamicModule(config)
@@ -123,8 +187,7 @@ class CoreProcess(core_printer.CorePrinters):
                 dm.dynamic_main(queue_dict)
             except Exception as e:
                 print(e)
-            break
-        return 0
+
 
     def check_active(self):
         """

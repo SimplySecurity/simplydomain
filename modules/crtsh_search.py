@@ -1,6 +1,7 @@
 from src import core_serialization
+from src import core_scrub
 from crtsh import crtshAPI
-import json
+import time
 
 
 class DynamicModule(object):
@@ -51,11 +52,37 @@ class DynamicModule(object):
     def dynamic_main(self, queue_dict):
         """
         Main entry point for process to call.
+    
+        core_serialization.SubDomain Attributes:
+            name: long name of method
+            module_name: name of the module that performed collection 
+            source: source of the subdomain or resource of collection
+            module_version: version from meta
+            source: source of the collection
+            time: time the result obj was built
+            subdomain: subdomain to use
+            valid: is domain valid
+
         :return: 
         """
-        queue_dict[]
+        core_args = self.json_entry['args']
+        task_output_queue = queue_dict['task_output_queue']
+        cs = core_scrub.Scrub()
         rd = []
-        data = crtshAPI().search('uber.com')
+        data = crtshAPI().search(str(core_args.DOMAIN))
         for d in data:
-            rd.append(d)
-        return rd
+            cs.subdomain = d['domain']
+            # check if domain name is valid
+            valid = cs.validate_domain()
+            # build the SubDomain Object to pass
+            sub_obj = core_serialization.SubDomain(
+                self.info["Name"],
+                self.info["Module"],
+                "https://crt.sh",
+                self.info["Version"],
+                time.time(),
+                d['domain'],
+                valid
+            )
+            # populate queue with return data objects
+            task_output_queue.put(sub_obj)

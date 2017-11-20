@@ -1,4 +1,5 @@
 from src import core_serialization
+from src import core_scrub
 
 class DynamicModule(object):
     """
