@@ -11,7 +11,7 @@ class CoreRuntime(module_loader.LoadModules,
     Core Runtime Class.
     """
 
-    def __init__(self, logger):
+    def __init__(self, logger, config):
         """
         Init class and passed objects.
         """
@@ -19,6 +19,7 @@ class CoreRuntime(module_loader.LoadModules,
         # core_printer.CorePrinters.__init__(self)
         core_processes.CoreProcess.__init__(self)
         self.logger = logger
+        self.config = config
 
     def list_modules(self):
         """
@@ -27,6 +28,15 @@ class CoreRuntime(module_loader.LoadModules,
         """
         self.logger.debugmsg('tasked to list modules', 'CoreRuntime')
         self.print_modules(self.modules)
+
+    def list_modules_long(self):
+        """
+        List the modules loaded.
+        :return: 
+        """
+        self.logger.debugmsg('tasked to list modules', 'CoreRuntime')
+        self.print_modules_long(self.modules)
+
 
     def execute_mp(self):
         """
@@ -43,7 +53,7 @@ class CoreRuntime(module_loader.LoadModules,
                 self.print_red_on_bold("\n[!] CRITICAL: CTRL+C Captured - Trying to clean up!\n"
                                        "[!] WARNING: Press CTRL+C AGAIN to bypass and MANUALLY cleanup")
                 try:
-                    time.sleep(1)
+                    time.sleep(0.1)
                     self.kill_processes()
                     sys.exit(0)
                 except KeyboardInterrupt:

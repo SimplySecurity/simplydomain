@@ -8,7 +8,7 @@ class DynamicModule(object):
     core runtime.
     """
 
-    def __init__(self, json_entry={}):
+    def __init__(self, json_entry):
         """
         Init class structure. Each module takes a JSON entry object which 
         can pass different values to the module with out changing up the API.
@@ -19,6 +19,9 @@ class DynamicModule(object):
         """
         self.json_entry = json_entry
         self.info = {
+            # mod name
+            'Module': 'google_search.py',
+
             # name of the module to be used
             'Name': 'Template enumerator module',
 
@@ -47,9 +50,9 @@ class DynamicModule(object):
 
         }
 
-    def dynamic_main(self):
+    def dynamic_main(self, queue_dict):
         """
         Main entry point for process to call.
         :return: 
         """
-        print("Hi from main")
+        return

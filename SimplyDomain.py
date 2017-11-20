@@ -3,6 +3,8 @@ import os
 import sys
 import argparse
 import logging
+import json
+import msgpack
 from src import core_printer
 from src import core_runtime
 from src import core_logger
@@ -21,6 +23,8 @@ def cli_parse():
                         action="store")
     parser.add_argument("-l", "--list", help="list loaded modules",
                         action="store_true")
+    parser.add_argument("-ll", "--long-list", help="list loaded modules and info about each module",
+                        action="store_true")
     parser.add_argument("-v", "--verbose", help="increase output verbosity",
                         action="store_true")
     parser.add_argument("-d", "--debug", help="enable debug logging to .SimplyDns.log file, default WARNING only",
@@ -29,6 +33,13 @@ def cli_parse():
     if args.verbose:
         print("[!] verbosity turned on")
     return args
+
+def load_config():
+    """
+    Loads .config.json file for use
+    :return: dict obj
+    """
+    return json.load(open('.config.json'))
 
 
 def main():
@@ -41,6 +52,8 @@ def main():
     pr.print_entry()
     args = cli_parse()
     logger = core_logger.CoreLogging()
+    config = load_config()
+    config['args'] = args
     if args.debug:
         logger.start(logging.DEBUG)
     logger.infomsg('main', 'startup')
@@ -49,8 +62,11 @@ def main():
     elif args.list:
         c = core_runtime.CoreRuntime(logger)
         c.list_modules()
-    else:
+    elif args.long_list:
         c = core_runtime.CoreRuntime(logger)
+        c.list_modules_long()
+    else:
+        c = core_runtime.CoreRuntime(logger, config)
         c.execute_mp()
 
 

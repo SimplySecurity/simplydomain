@@ -1,4 +1,5 @@
 from termcolor import colored, cprint
+import json
 
 class CorePrinters(object):
     """
@@ -59,6 +60,27 @@ class CorePrinters(object):
         for name in finalList:
             print("\t%s)\t%s" % (x, '{0: <24}'.format(name)))
             x += 1
+
+    def print_modules_long(self, module_list):
+        """
+        Print all modules within the framework to be run
+        :param module_list: mod list of loaded functions 
+        :return: NONE
+        """
+        self.print_red_on_bold(" [*] Available modules are:")
+        x = 1
+        finalList = []
+        print("-" * 60)
+        for mod in module_list:
+            dynamic_module = module_list[mod]
+            dm = dynamic_module.DynamicModule()
+            parts = mod.split("/")
+            name = 'modules/' + parts[-1]
+            self.print_yellow_on_bold(" %s" % ('{0: <24}'.format(name).ljust(40)))
+            print(json.dumps(dm.info, indent=4))
+            print("-" * 60)
+
+
 
 
     def formatLong(self, title, message, frontTab=True, spacing=16):

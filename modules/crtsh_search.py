@@ -1,4 +1,7 @@
 from src import core_serialization
+from crtsh import crtshAPI
+import json
+
 
 class DynamicModule(object):
     """
@@ -13,37 +16,36 @@ class DynamicModule(object):
         can pass different values to the module with out changing up the API.
         adapted form  Empire Project:
         https://github.com/EmpireProject/Empire/blob/master/lib/modules/python_template.py
-        
+
         :param json_entry: JSON data object passed to the module.
         """
         self.json_entry = json_entry
         self.info = {
-            # name of the module to be used
-            'Name': 'Template enumerator module',
+            # mod name
+            'Module': 'crtsh_search.py',
+
+            # long name of the module to be used
+            'Name': 'Comodo Certificate Fingerprint',
 
             # version of the module to be used
-            'Version': '0.0',
+            'Version': '1.0',
 
             # description
-            'Description': ('Template module to model after',
-                            'while using 2 lines'),
+            'Description': ['Uses https://crt.sh search',
+                            'with unofficial search engine support.'],
 
             # authors or sources to be quoted
-            'Authors': ['@Killswitch-GUI', '@Killswitch-GUI'],
+            'Authors': ['@Killswitch-GUI', '@PaulSec'],
 
             # list of resources or comments
             'comments': [
-                'Please make sure all of the required fields are filled in.',
-                'Http://www.google.com'
+                'SHA-1 or SHA-256 lookup.'
             ]
         }
 
         self.options = {
-            # options for the module to use by default these will be dynamic in nature
-
             # threads for the module to use
-            'Threads': 10
-
+            'Threads': 1
         }
 
     def dynamic_main(self, queue_dict):
@@ -51,3 +53,9 @@ class DynamicModule(object):
         Main entry point for process to call.
         :return: 
         """
+        queue_dict[]
+        rd = []
+        data = crtshAPI().search('uber.com')
+        for d in data:
+            rd.append(d)
+        return rd

@@ -1,5 +1,6 @@
 from src import core_serialization
 
+
 class DynamicModule(object):
     """
     Dynamic module class that will be loaded and called 
@@ -13,23 +14,26 @@ class DynamicModule(object):
         can pass different values to the module with out changing up the API.
         adapted form  Empire Project:
         https://github.com/EmpireProject/Empire/blob/master/lib/modules/python_template.py
-        
+
         :param json_entry: JSON data object passed to the module.
         """
         self.json_entry = json_entry
         self.info = {
+            # mod name
+            'Module': 'cenys_search.py',
+
             # name of the module to be used
-            'Name': 'Template enumerator module',
+            'Name': 'Cenys search engine API',
 
             # version of the module to be used
-            'Version': '0.0',
+            'Version': '1.0',
 
             # description
-            'Description': ('Template module to model after',
-                            'while using 2 lines'),
+            'Description': ['Uses https://crt.sh search',
+                            'with unofficial search engine support.'],
 
             # authors or sources to be quoted
-            'Authors': ['@Killswitch-GUI', '@Killswitch-GUI'],
+            'Authors': ['@Killswitch-GUI'],
 
             # list of resources or comments
             'comments': [
@@ -51,3 +55,4 @@ class DynamicModule(object):
         Main entry point for process to call.
         :return: 
         """
+        return

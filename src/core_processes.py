@@ -1,9 +1,6 @@
 import multiprocessing as mp
 from . import core_printer
 
-def test():
-    print("HI")
-
 class CoreProcess(core_printer.CorePrinters):
     """
     Core class to handle threading and process 
@@ -24,6 +21,7 @@ class CoreProcess(core_printer.CorePrinters):
         self.mp = mp
         self.mpq = self.mp.Queue()
         self.task_queue = mp.Queue()
+        self.task_output_queue = mp.Queue()
 
     def _configure_mp(self):
         """
@@ -84,12 +82,12 @@ class CoreProcess(core_printer.CorePrinters):
         """
         queues = []
         for _ in range(self.processors):
-            self.start_process(self.task_queue)
+            self.start_process(self.config, self.task_queue, self.task_output_queue)
         for p in self.procs:
             p.daemon = True
             p.start()
 
-    def start_process(self, queues):
+    def start_process(self, config, task_queue, task_output_queue):
         """
         Executes a proc with a given module and
         passes it the proper objects to communicate with
@@ -100,11 +98,15 @@ class CoreProcess(core_printer.CorePrinters):
         :return: BOOL 
         """
         # add all process to a list so we itt over them
+        queue_dict = {
+            'task_queue': task_queue,
+            'task_output_queue': task_output_queue
+        }
         self.procs.append(
             self.mp.Process(target=self.execute_processes,
-                            args=(queues,)))
+                            args=(config,queue_dict)))
 
-    def execute_processes(self, queues):
+    def execute_processes(self, config, queue_dict):
         """
         Executes the module required and passed.
         :param module_obj: module settings
@@ -113,11 +115,12 @@ class CoreProcess(core_printer.CorePrinters):
         """
         while True:
             # loop to execute taskings from taskQ
-            q = queues.get()
+            q = queue_dict['task_queue'].get()
             dynamic_module = self.modules[q]
             try:
-                dm = dynamic_module.DynamicModule()
-                dm.dynamic_main()
+                dm = dynamic_module.DynamicModule(config)
+                self.print_green(" [*] Executing module: %s %s" %('{0: <22}'.format("("+dm.info['Module']+")"), "("+dm.info['Name']+")"))
+                dm.dynamic_main(queue_dict)
             except Exception as e:
                 print(e)
             break
@@ -151,6 +154,16 @@ class CoreProcess(core_printer.CorePrinters):
             pid = p.pid
             p_name = p.name
             self.print_yellow("[!] Process info: (PID: %s) (NAME: %s)" % (str(pid), str(p_name)))
+
+    def list_processes_exitcode(self):
+        """
+        List all procs and exitcode
+        :return: 
+        """
+        for p in self.procs:
+            pid = p.pid
+            ec = p.exitcode
+            self.print_yellow("[!] Process info: (PID: %s) (EXITCODE: %s)" % (str(pid), str(ec)))
 
     def kill_processes(self):
         """
