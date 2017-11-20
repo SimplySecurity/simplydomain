@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="616a011a-2c65-4071-b80e-442d6a9ad68d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/SimplyDomain.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/core_scrub.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/crtsh_search.py" afterPath="$PROJECT_DIR$/modules/crtsh_search.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/module_template.py" afterPath="$PROJECT_DIR$/modules/module_template.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core_processes.py" afterPath="$PROJECT_DIR$/src/core_processes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core_runtime.py" afterPath="$PROJECT_DIR$/src/core_runtime.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core_serialization.py" afterPath="$PROJECT_DIR$/src/core_serialization.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -347,7 +338,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511154795735</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="core">
+      <created>1511219444025</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1511219444025</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -387,7 +385,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sp 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="sp 1" />
+    <MESSAGE value="core" />
+    <option name="LAST_COMMIT_MESSAGE" value="core" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
