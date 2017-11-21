@@ -93,9 +93,12 @@ class CoreOutput(core_printer.CorePrinters):
             dir_name = str(args.output_name)
         dir_to_write = os.path.join(loc, dir_name)
         pathlib.Path(dir_to_write).mkdir(parents=True, exist_ok=True)
+        flist = []
         with open(os.path.join(dir_to_write, def_name), 'a') as outfile:
             for item in json_data.subdomains['data']:
-                x = ("%s\n" % (item['subdomain']))
+                flist.append(item['subdomain'])
+            for item in sorted(set(flist)):
+                x = ("%s\n" % (item))
                 outfile.write(x)
         self.print_green(" [*] Standard text file created: %s" % (os.path.join(dir_to_write, def_name)))
 
