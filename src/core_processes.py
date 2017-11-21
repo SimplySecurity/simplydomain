@@ -65,7 +65,6 @@ class CoreProcess(core_printer.CorePrinters):
             if item:
                 self.serialize_json_output.add_subdomain(item)
             if item == None:
-                self.serialize_json_output.print_json_subdomains()
                 break
             if self.task_output_queue.empty():
                 time.sleep(0.1)

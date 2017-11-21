@@ -3,10 +3,12 @@ import signal
 import sys
 from . import module_loader
 from . import core_processes
+from . import core_output
 
 
 class CoreRuntime(module_loader.LoadModules,
-                  core_processes.CoreProcess):
+                  core_processes.CoreProcess,
+                  core_output.CoreOutput):
     """
     Core Runtime Class.
     """
@@ -16,8 +18,9 @@ class CoreRuntime(module_loader.LoadModules,
         Init class and passed objects.
         """
         self.config = config
+        core_output.CoreOutput.__init__(self)
         module_loader.LoadModules.__init__(self)
-        # core_printer.CorePrinters.__init__(self)
+        # ore_printer.CorePrinters.__init__(self)
         core_processes.CoreProcess.__init__(self)
         self.logger = logger
 
@@ -38,6 +41,14 @@ class CoreRuntime(module_loader.LoadModules,
         self.logger.debugmsg('tasked to list modules', 'CoreRuntime')
         self.print_modules_long(self.modules)
 
+    def execute_output(self):
+        """
+        Execute the output of formatted data stucs.
+        :return: NONE
+        """
+        self.output_text(self.serialize_json_output)
+        self.output_json(self.serialize_json_output)
+        self.output_text_std(self.serialize_json_output)
 
     def execute_mp(self):
         """
@@ -63,6 +74,7 @@ class CoreRuntime(module_loader.LoadModules,
                     sys.exit(0)
         self.join_processes()
         self.join_threads()
+        self.execute_output()
 
 
 

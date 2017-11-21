@@ -21,6 +21,8 @@ def cli_parse():
     # opts
     parser.add_argument("-m", "--module", help="module to hit",
                         action="store")
+    parser.add_argument("-o", "--output", help="output directory location (Ex. /users/test/)")
+    parser.add_argument("-on", "--output-name", help="output directory name (Ex. test-2017)",)
     parser.add_argument("-l", "--list", help="list loaded modules",
                         action="store_true")
     parser.add_argument("-ll", "--long-list", help="list loaded modules and info about each module",
