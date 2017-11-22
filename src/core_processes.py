@@ -1,8 +1,10 @@
 import multiprocessing as mp
 import threading
 import time
+
 from . import core_printer
 from . import core_serialization
+
 
 class CoreProcess(core_printer.CorePrinters):
     """
