@@ -1,12 +1,13 @@
 #!/usr/bin/python3
+import argparse
+import json
+import logging
 import os
 import sys
-import argparse
-import logging
-import json
-import msgpack
+
 from src import core_printer
 from src import core_runtime
+
 from src import core_logger
 
 
