@@ -184,8 +184,12 @@ class CoreProcess(core_printer.CorePrinters):
                 dm = dynamic_module.DynamicModule(config)
                 self.print_green(" [*] Executing module: %s %s" %('{0: <22}'.format("("+dm.info['Module']+")"), "("+dm.info['Name']+")"))
                 dm.dynamic_main(queue_dict)
+                self.print_green(" [*] Module completed: %s %s" % (
+                '{0: <22}'.format("(" + dm.info['Module'] + ")"), "(" + dm.info['Name'] + ")"))
             except Exception as e:
-                print(e)
+                self.print_red(" [!] Module process failed: %s %s" % (
+                '{0: <22}'.format("(" + dm.info['Module'] + ")"), "(" + e + ")"))
+
 
 
     def check_active(self):
@@ -238,5 +242,5 @@ class CoreProcess(core_printer.CorePrinters):
             p_name = p.name
             while p.is_alive():
                 p.terminate()
-            self.print_red("[!] Process has been terminated: (PID: %s) (NAME: %s" % (str(pid), str(p_name)))
+            self.print_red("[!] Process has been terminated: (PID: %s) (NAME: %s)" % (str(pid), str(p_name)))
 

@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="616a011a-2c65-4071-b80e-442d6a9ad68d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/dnsdumpster_search.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/bing_search.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/cenys_api.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/modules/google_search.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.config.json" afterPath="$PROJECT_DIR$/.config.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SimplyDomain.py" afterPath="$PROJECT_DIR$/SimplyDomain.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/virustotal_search.py" afterPath="$PROJECT_DIR$/modules/virustotal_search.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core_processes.py" afterPath="$PROJECT_DIR$/src/core_processes.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module_helpers.py" afterPath="$PROJECT_DIR$/src/module_helpers.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,7 +23,7 @@
       <file leaf-file-name="SimplyDomain.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SimplyDomain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
+            <state relative-caret-position="836">
               <caret line="75" column="8" lean-forward="false" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="8" />
               <folding>
                 <element signature="e#19#28#0" expanded="true" />
@@ -33,31 +35,53 @@
       <file leaf-file-name="core_runtime.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/core_runtime.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-21">
+            <state relative-caret-position="-539">
               <caret line="3" column="25" lean-forward="false" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="virustotal_search.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/virustotal_search.py">
+      <file leaf-file-name="core_processes.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/core_processes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+            <state relative-caret-position="241">
+              <caret line="189" column="60" lean-forward="false" selection-start-line="189" selection-start-column="60" selection-end-line="189" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bing_search.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/bing_search.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="90" column="68" lean-forward="false" selection-start-line="90" selection-start-column="68" selection-end-line="90" selection-end-column="68" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".config.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.config.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dnsdumpster_search.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/modules/dnsdumpster_search.py">
+      <file leaf-file-name="module_helpers.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/module_helpers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1131">
-              <caret line="88" column="31" lean-forward="false" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#34#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="290">
+              <caret line="59" column="23" lean-forward="false" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,22 +119,23 @@
         <option value="$PROJECT_DIR$/src/module_loader.py" />
         <option value="$PROJECT_DIR$/src/core_printer.py" />
         <option value="$PROJECT_DIR$/config.json" />
-        <option value="$PROJECT_DIR$/.config.json" />
         <option value="$PROJECT_DIR$/modules/cenys_api.py" />
         <option value="$PROJECT_DIR$/modules/google_search.py" />
         <option value="$PROJECT_DIR$/modules/module_template.py" />
         <option value="$PROJECT_DIR$/src/core_scrub.py" />
         <option value="$PROJECT_DIR$/modules/crtsh_search.py" />
         <option value="$PROJECT_DIR$/src/core_serialization.py" />
-        <option value="$PROJECT_DIR$/src/core_processes.py" />
         <option value="$PROJECT_DIR$/src/core_converter.py" />
-        <option value="$PROJECT_DIR$/src/module_helpers.py" />
         <option value="$PROJECT_DIR$/src/core_output.py" />
         <option value="$PROJECT_DIR$/SimplyDomain.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/core_runtime.py" />
         <option value="$PROJECT_DIR$/modules/virustotal_search.py" />
         <option value="$PROJECT_DIR$/modules/dnsdumpster_search.py" />
+        <option value="$PROJECT_DIR$/src/module_helpers.py" />
+        <option value="$PROJECT_DIR$/.config.json" />
+        <option value="$PROJECT_DIR$/modules/bing_search.py" />
+        <option value="$PROJECT_DIR$/src/core_processes.py" />
       </list>
     </option>
   </component>
@@ -354,7 +379,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511308635028</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="0.1">
+      <created>1511362777370</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1511362777370</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -483,7 +515,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1665">
           <caret line="112" column="28" lean-forward="true" selection-start-line="112" selection-start-column="28" selection-end-line="112" selection-end-column="28" />
-          <folding />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -569,14 +603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core_scrub.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -605,22 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="52" column="37" lean-forward="false" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core_processes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2136">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/google_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -708,16 +718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SimplyDomain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="75" column="8" lean-forward="false" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="8" />
-          <folding>
-            <element signature="e#19#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/module_template.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -734,24 +734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/module_helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core_runtime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21">
-          <caret line="3" column="25" lean-forward="false" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core_output.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1009">
@@ -759,14 +741,6 @@
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/virustotal_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -794,12 +768,100 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/google_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module_helpers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="59" column="23" lean-forward="false" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/virustotal_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-430">
+          <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#34#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/modules/dnsdumpster_search.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1131">
-          <caret line="88" column="31" lean-forward="false" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
+        <state relative-caret-position="539">
+          <caret line="72" column="41" lean-forward="false" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#34#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SimplyDomain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="75" column="8" lean-forward="false" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="8" />
+          <folding>
+            <element signature="e#19#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/bing_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="90" column="68" lean-forward="false" selection-start-line="90" selection-start-column="68" selection-end-line="90" selection-end-column="68" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core_runtime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-539">
+          <caret line="3" column="25" lean-forward="false" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uber-com-1511372880/uber-com.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1308">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uber-com-1511372880/uber-com.grep">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3302">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core_processes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="189" column="60" lean-forward="false" selection-start-line="189" selection-start-column="60" selection-end-line="189" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
