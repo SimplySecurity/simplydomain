@@ -190,8 +190,6 @@ class CoreProcess(core_printer.CorePrinters):
                 self.print_red(" [!] Module process failed: %s %s" % (
                 '{0: <22}'.format("(" + dm.info['Module'] + ")"), "(" + e + ")"))
 
-
-
     def check_active(self):
         """
         Check if mp is has active pids
