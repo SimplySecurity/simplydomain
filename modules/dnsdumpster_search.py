@@ -1,6 +1,7 @@
 from src import core_serialization
 from src import core_scrub
 from src import module_helpers
+from dnsdumpster.DNSDumpsterAPI import DNSDumpsterAPI
 import time
 import json
 
@@ -26,30 +27,31 @@ class DynamicModule(module_helpers.RequestsHelpers):
         self.json_entry = json_entry
         self.info = {
             # mod name
-            'Module': 'virus_total.py',
+            'Module': 'dnsdumpster_search.py',
 
             # long name of the module to be used
-            'Name': 'Virus Total Subdomain Search',
+            'Name': 'Python API for Dnsdumpster',
 
             # version of the module to be used
             'Version': '1.0',
 
             # description
-            'Description': ['Uses https://virustotal.com search',
-                            'with unofficial search engine API support.'],
+            'Description': ['(Unofficial) Python API for',
+                            'https://dnsdumpster.com/ using @paulsec lib.'],
 
             # authors or sources to be quoted
-            'Authors': ['@Killswitch-GUI'],
+            'Authors': ['@Killswitch-GUI', '@PaulSec'],
 
             # list of resources or comments
             'comments': [
-                'Searches for seen subdomains at one point and time.'
+                'Searches for prior seen domains, as well as data that goes with those.'
             ]
         }
 
         self.options = {
 
-            'url': 'https://www.virustotal.com/ui/domains/%s/subdomains'
+            'threads': '',
+            'url': 'https://dnsdumpster.com',
         }
 
     def dynamic_main(self, queue_dict):
@@ -71,12 +73,10 @@ class DynamicModule(module_helpers.RequestsHelpers):
         core_args = self.json_entry['args']
         task_output_queue = queue_dict['task_output_queue']
         cs = core_scrub.Scrub()
-        domain = self.options['url'] % (str(core_args.DOMAIN))
-        data, status = self.request_json(domain)
-        data = json.loads(data)
-        if status:
-            for d in data['data']:
-                cs.subdomain = d['id']
+
+        data = DNSDumpsterAPI().search(str(core_args.DOMAIN))
+        for d in data['dns_records']['host']:
+                cs.subdomain = d['domain']
                 # check if domain name is valid
                 valid = cs.validate_domain()
                 # build the SubDomain Object to pass
@@ -86,7 +86,7 @@ class DynamicModule(module_helpers.RequestsHelpers):
                     self.options['url'],
                     self.info["Version"],
                     time.time(),
-                    d['id'],
+                    d['domain'],
                     valid
                 )
                 # populate queue with return data object

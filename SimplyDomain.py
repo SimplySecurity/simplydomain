@@ -62,10 +62,10 @@ def main():
     if args.module:
         print()
     elif args.list:
-        c = core_runtime.CoreRuntime(logger)
+        c = core_runtime.CoreRuntime(logger, config)
         c.list_modules()
     elif args.long_list:
-        c = core_runtime.CoreRuntime(logger)
+        c = core_runtime.CoreRuntime(logger, config)
         c.list_modules_long()
     else:
         c = core_runtime.CoreRuntime(logger, config)
