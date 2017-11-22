@@ -11,7 +11,7 @@ setup(name='SimplyDomain',
       install_requires=[
           '',
       ],
-      scripts = [
-        'SimplyDomain/SimplyDomain.py'
+      scripts=[
+          'SimplyDomain/SimplyDomain.py'
       ],
       zip_safe=False)
