@@ -34,6 +34,14 @@ root@kali:~# python3.6 SimplyDomain.py -h
 * OS: SimplyDomain is pure Python if it runs Python it should work
 * Priv: Requires `sudo` to install
 
+## Module Support
+
+Module | Name | Description | Version
+--- | --- | ---
+crtsh_search.py | Comodo Certificate Fingerprint | Uses https://crt.sh search with unofficial search engine support. | 1.0
+
+
+
 ## Contributing
 This project is built with PyCharms and should be imported via the `.idea` Folder. Please make sure the following take place before submitting a pull request:
 
