@@ -3,7 +3,7 @@ SimplyDomain uses a framework approach to build and deploy modules within. This 
 for fast, easy and concise output to feed into larger OSINT feeds.
 
 ## Installation
-SimplyDomain is pure Python and *should* support any platfrom. 
+SimplyDomain is pure Python, and *should* support any platform. 
 
 **One-line** install with bash:
 ```bash
@@ -29,9 +29,15 @@ root@kali:~# cd ..
 root@kali:~# python3.6 SimplyDomain.py -h
 ```
 
-## Install FAQ
-* Python: Python 3.6 is supported
+### Install FAQ
+* Python: Python 3.6 required
 * OS: SimplyDomain is pure Python if it runs Python it should work
 * Priv: Requires `sudo` to install
+
+## Contributing
+This project is built with PyCharms and should be imported via the `.idea` Folder. Please make sure the following take place before submitting a pull request:
+
+1) Passes all code `Inspections` - Python & General 
+2) If possible unit tests of new code
 
 
