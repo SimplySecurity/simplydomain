@@ -21,7 +21,7 @@ root@kali:~# cd SimplyDomain
 (SD) root@kali:~/SimplyDomain# ./SimplyDomain.py
 ```
 
-**Build from sorce** install with **no** Python virtual end:
+**Source** install with **no** Python virtual end:
 ```
 root@kali:~# git clone https://github.com/SimplySecurity/SimplyDomain.git
 root@kali:~# cd SimplyDomain/setup/
