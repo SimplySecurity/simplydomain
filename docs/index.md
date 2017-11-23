@@ -6,14 +6,14 @@ for fast, easy and concise output to feed into larger OSINT feeds.
 SimplyDomain is pure Python and *should* support any platfrom. 
 
 **One-line** install with bash:
-```
+```bash
 root@kali:~# curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash
 root@kali:~# cd SimplyDomain
 (SD) root@kali:~/SimplyDomain# ./SimplyDomain.py
 ```
 
 **Git clone** install with `setup.sh` which builds a Python virtual env:
-```
+```bash
 root@kali:~# git clone https://github.com/SimplySecurity/SimplyDomain.git
 root@kali:~# ./SimplyDomain/setup.sh
 root@kali:~# cd SimplyDomain
@@ -21,7 +21,7 @@ root@kali:~# cd SimplyDomain
 ```
 
 **Source** install with **no** Python virtual end:
-```
+```bash
 root@kali:~# git clone https://github.com/SimplySecurity/SimplyDomain.git
 root@kali:~# cd SimplyDomain/setup/
 root@kali:~# pip install -r requirements.txt
