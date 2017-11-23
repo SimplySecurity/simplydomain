@@ -142,7 +142,6 @@ class CoreProcess(core_printer.CorePrinters):
         :param queues: A list of queue objects
         :return: BOOL 
         """
-        queues = []
         self._start_threads()
         for _ in range(self.processors):
             self.start_process(self.config, self.task_queue, self.task_output_queue)
@@ -156,8 +155,9 @@ class CoreProcess(core_printer.CorePrinters):
         passes it the proper objects to communicate with
         the core run time.
 
-        :param module_obj: Module Ooject
-        :param queues: A list of queue objects
+        :param config: Module Ooject
+        :param task_queue: A list of queue objects
+        :param task_output_queue:
         :return: BOOL 
         """
         # add all process to a list so we itt over them

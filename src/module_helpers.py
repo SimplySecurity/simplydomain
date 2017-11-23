@@ -45,10 +45,10 @@ class RequestsHelpers(core_output.CoreOutput):
         except requests.ConnectTimeout as e:
             self.print_red(" [!] Request ConnectionTimeout: (URL): %s (ERROR): %s" % (str(url), str(e)))
             return {}, False
-        except requests.TooManyRedirects:
+        except requests.TooManyRedirects as e:
             self.print_red(" [!] Request TooManyRedirects: (URL): %s (ERROR): %s" % (str(url), str(e)))
             return {}, False
-        except requests.HTTPError:
+        except requests.HTTPError as e:
             self.print_red(" [!] Request TooManyRedirects: (URL): %s (ERROR): %s" % (str(url), str(e)))
             return {}, False
         except ConnectionError as e:
@@ -81,10 +81,10 @@ class RequestsHelpers(core_output.CoreOutput):
         except requests.ConnectTimeout as e:
             self.print_red(" [!] Request ConnectionTimeout: (URL): %s (ERROR): %s" % (str(url), str(e)))
             return {}, False
-        except requests.TooManyRedirects:
+        except requests.TooManyRedirects as e:
             self.print_red(" [!] Request TooManyRedirects: (URL): %s (ERROR): %s" % (str(url), str(e)))
             return {}, False
-        except requests.HTTPError:
+        except requests.HTTPError as e:
             self.print_red(" [!] Request TooManyRedirects: (URL): %s (ERROR): %s" % (str(url), str(e)))
             return {}, False
         except ConnectionError as e:

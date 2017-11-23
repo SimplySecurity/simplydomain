@@ -68,8 +68,6 @@ class CorePrinters(object):
         :return: NONE
         """
         self.print_red_on_bold(" [*] Available modules are:")
-        x = 1
-        finalList = []
         print("-" * 60)
         for mod in module_list:
             dynamic_module = module_list[mod]
