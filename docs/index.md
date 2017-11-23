@@ -43,6 +43,44 @@ bing_search.py | Bing Subdomain Search | Uses Bing search engine with unofficial
 dnsdumpster_search.py | Python API for Dnsdumpster | (Unofficial) Python API for https://dnsdumpster.com/ using @paulsec lib | 1.0
 virus_total.py | Virus Total Subdomain Search | Uses https://virustotal.com search with unofficial search engine API support. | 1.0
 
+## Running SimplyDomain 
+
+```python
+root@kali:~# python3.6 SimplyDomain.py -h
+
+    ------------------------------------------------------------
+      ______  _______                                 __          
+     /      \/       \                               /  |         
+    /$$$$$$  $$$$$$$  | ______  _____  ____   ______ $$/ _______  
+    $$ \__$$/$$ |  $$ |/      \/     \/    \ /      \/  /       \ 
+    $$      \$$ |  $$ /$$$$$$  $$$$$$ $$$$  |$$$$$$  $$ $$$$$$$  |
+     $$$$$$  $$ |  $$ $$ |  $$ $$ | $$ | $$ |/    $$ $$ $$ |  $$ |
+    /  \__$$ $$ |__$$ $$ \__$$ $$ | $$ | $$ /$$$$$$$ $$ $$ |  $$ |
+    $$    $$/$$    $$/$$    $$/$$ | $$ | $$ $$    $$ $$ $$ |  $$ |
+     $$$$$$/ $$$$$$$/  $$$$$$/ $$/  $$/  $$/ $$$$$$$/$$/$$/   $$/ 
+    ------------------------------------------------------------                                                                                              
+    
+usage: SimplyDomain.py [-h] [-m MODULE] [-o OUTPUT] [-on OUTPUT_NAME] [-l]
+                       [-ll] [-v] [-d]
+                       DOMAIN
+
+positional arguments:
+  DOMAIN                domain to query
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODULE, --module MODULE
+                        module to hit
+  -o OUTPUT, --output OUTPUT
+                        output directory location (Ex. /users/test/)
+  -on OUTPUT_NAME, --output-name OUTPUT_NAME
+                        output directory name (Ex. test-2017)
+  -l, --list            list loaded modules
+  -ll, --long-list      list loaded modules and info about each module
+  -v, --verbose         increase output verbosity
+  -d, --debug           enable debug logging to .SimplyDns.log file, default
+                        WARNING only
+```
 
 
 ## Contributing
