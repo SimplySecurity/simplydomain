@@ -40,6 +40,8 @@ Module | Name | Description | Version
 --- | --- | --- | ---
 crtsh_search.py | Comodo Certificate Fingerprint | Uses https://crt.sh search with unofficial search engine support. | 1.0
 bing_search.py | Bing Subdomain Search | Uses Bing search engine with unofficial search engine API support. | 1.0
+dnsdumpster_search.py | Python API for Dnsdumpster | (Unofficial) Python API for https://dnsdumpster.com/ using @paulsec lib | 1.0
+virus_total.py | Virus Total Subdomain Search | Uses https://virustotal.com search with unofficial search engine API support. | 1.0
 
 
 
