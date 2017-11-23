@@ -37,7 +37,7 @@ root@kali:~# python3.6 SimplyDomain.py -h
 ## Contributing
 This project is built with PyCharms and should be imported via the `.idea` Folder. Please make sure the following take place before submitting a pull request:
 
-1) Passes all code `Inspections` - Python & General 
-2) If possible unit tests of new code
+1. Passes all code `Inspections` - Python & General 
+2. If possible unit tests of new code
 
 
