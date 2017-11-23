@@ -45,7 +45,7 @@ virus_total.py | Virus Total Subdomain Search | Uses https://virustotal.com sear
 
 ## Running SimplyDomain 
 
-```python
+```
 root@kali:~# python3.6 SimplyDomain.py -h
 
     ------------------------------------------------------------
