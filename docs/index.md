@@ -37,7 +37,7 @@ root@kali:~# python3.6 SimplyDomain.py -h
 ## Module Support
 
 Module | Name | Description | Version
---- | --- | ---
+--- | --- | --- | ---
 crtsh_search.py | Comodo Certificate Fingerprint | Uses https://crt.sh search with unofficial search engine support. | 1.0
 
 
