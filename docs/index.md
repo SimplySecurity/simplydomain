@@ -39,6 +39,7 @@ root@kali:~# python3.6 SimplyDomain.py -h
 Module | Name | Description | Version
 --- | --- | --- | ---
 crtsh_search.py | Comodo Certificate Fingerprint | Uses https://crt.sh search with unofficial search engine support. | 1.0
+bing_search.py | Bing Subdomain Search | Uses Bing search engine with unofficial search engine API support. | 1.0
 
 
 
