@@ -8,10 +8,8 @@ setup(name='SimplyDomain',
       author_email='a.rymdekoharvey@obscuritylabs.com',
       license='BSD 3.0',
       packages=[
-          'SimplyDomain',
-          'SimplyDomain.src',
-          'SimplyDomain.modules',
-          'SimplyDomain.tests',
+          'src',
+          'modules',
       ],
       classifiers=[
         # How mature is this project? Common values are
@@ -35,6 +33,6 @@ setup(name='SimplyDomain',
         'validators == 0.12.0'
               ],
       scripts=[
-          'SimplyDomain/SimplyDomain.py'
+          'SimplyDomain.py'
       ],
       zip_safe=False)
