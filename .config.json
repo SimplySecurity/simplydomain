@@ -5,6 +5,13 @@
     "twitter": "Killswitch-GUI",
     "github_repo": "https://github.com/killswitch-GUI/SimplyDomain"
   },
+  "yahoo_search": {
+    "start_count": 0,
+    "end_count": 1000,
+    "quantity": 100,
+    "sleep_time": 3,
+    "sleep_jitter": 0.30
+  },
   "bing_search": {
     "start_count": 1,
     "end_count": 100,

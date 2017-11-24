@@ -8,7 +8,10 @@ import sys
 from src import core_printer
 from src import core_runtime
 
+from src import module_resolvers
 from src import core_logger
+
+_config_file_name = '.config.json'
 
 
 def cli_parse():
@@ -37,12 +40,19 @@ def cli_parse():
         print("[!] verbosity turned on")
     return args
 
-def load_config():
+
+def load_config(pr):
     """
     Loads .config.json file for use
     :return: dict obj
     """
-    return json.load(open('.config.json'))
+    pr.print_green(' [*] JSON Configuration file loaded: (NAME: %s)' % (_config_file_name))
+    json_file = json.load(open(_config_file_name))
+    ds = module_resolvers.DnsServers()
+    ds.populate_servers()
+    json_file = ds.populate_config(json_file)
+    pr.print_green(' [*] Public DNS resolvers populated: (SERVER COUNT: %s)' % (str(ds.count_resolvers())))
+    return json_file
 
 
 def main():
@@ -55,13 +65,14 @@ def main():
     pr.print_entry()
     args = cli_parse()
     logger = core_logger.CoreLogging()
-    config = load_config()
+    config = load_config(pr)
     config['args'] = args
     if args.debug:
         logger.start(logging.DEBUG)
     logger.infomsg('main', 'startup')
     if args.module:
-        print()
+        c = core_runtime.CoreRuntime(logger, config)
+        c.execute_mp()
     elif args.list:
         c = core_runtime.CoreRuntime(logger, config)
         c.list_modules()

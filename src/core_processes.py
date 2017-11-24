@@ -75,11 +75,19 @@ class CoreProcess(core_printer.CorePrinters):
         """
         Populats the queue of module objects to be executed.
         :param modules: passed list of dynamic loaded modules
+        :param module_name: if name passed it will only place that module into the q
         :return: NONE
         """
-        for mod in modules:
-            # populate the q with module data
-            self.task_queue.put(mod)
+        if self.config['args'].module:
+            # populate only one module in the q
+            for mod in modules:
+                # populate the q with module data if name hits
+                if self.config['args'].module in mod:
+                    self.task_queue.put(mod)
+        else:
+            for mod in modules:
+                # populate the q with module data
+                self.task_queue.put(mod)
         self._configure_processes(len(modules))
 
     def clear_task_queue(self):
@@ -191,6 +199,7 @@ class CoreProcess(core_printer.CorePrinters):
             except Exception as e:
                 self.print_red(" [!] Module process failed: %s %s" % (
                 '{0: <22}'.format("(" + dm.info['Module'] + ")"), "(" + e + ")"))
+
 
     def check_active(self):
         """
