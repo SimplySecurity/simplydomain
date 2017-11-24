@@ -79,8 +79,6 @@ class CorePrinters(object):
             print("-" * 60)
 
 
-
-
     def formatLong(self, title, message, frontTab=True, spacing=16):
         """
         Print a long title:message with our standardized formatting.
