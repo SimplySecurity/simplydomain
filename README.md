@@ -7,3 +7,6 @@ for fast, easy and concise output to feed into larger OSINT feeds.
 
 [INSTALL / FAQ]
 https://simplysecurity.github.io/SimplyDomain/
+
+[CHANGELOG]
+https://github.com/SimplySecurity/SimplyDomain/CHNAGELOG.md
