@@ -201,6 +201,25 @@ class CoreProcess(core_printer.CorePrinters):
                 '{0: <22}'.format("(" + dm.info['Module'] + ")"), "(" + e + ")"))
 
 
+    def execute_process(self, mod_name, config, queue_dict):
+        """
+        Executes the module required and passed.
+        :param module_obj: module settings
+        :param queues: passed list obj
+        :return:
+        """
+        static_module = self.static_modules[mod_name]
+        try:
+            sm = static_module.DynamicModule(config)
+            self.print_green(" [*] Executing module: %s %s" %('{0: <22}'.format("("+sm.info['Module']+")"), "("+sm.info['Name']+")"))
+            sm.dynamic_main(queue_dict)
+            self.print_green(" [*] Module completed: %s %s" % (
+            '{0: <22}'.format("(" + sm.info['Module'] + ")"), "(" + sm.info['Name'] + ")"))
+        except Exception as e:
+            self.print_red(" [!] Module process failed: %s %s" % (
+            '{0: <22}'.format("(" + sm.info['Module'] + ")"), "(" + str(e) + ")"))
+
+
     def check_active(self):
         """
         Check if mp is has active pids

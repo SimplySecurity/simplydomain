@@ -5,6 +5,32 @@
     "twitter": "Killswitch-GUI",
     "github_repo": "https://github.com/killswitch-GUI/SimplyDomain"
   },
+  "subdomain_bruteforce": {
+    "top_1000": [
+      "third_party",
+      "dnspop",
+      "results",
+      "bitquark_20160227_subdomains_popular_1000"
+    ],
+    "top_10000": [
+      "third_party",
+      "dnspop",
+      "results",
+      "bitquark_20160227_subdomains_popular_10000"
+    ],
+    "top_100000": [
+      "third_party",
+      "dnspop",
+      "results",
+      "bitquark_20160227_subdomains_popular_100000"
+    ],
+    "top_1000000": [
+      "third_party",
+      "dnspop",
+      "results",
+      "bitquark_20160227_subdomains_popular_1000000"
+    ]
+  },
   "yahoo_search": {
     "start_count": 0,
     "end_count": 1000,

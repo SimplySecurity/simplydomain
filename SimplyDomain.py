@@ -23,6 +23,12 @@ def cli_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument("DOMAIN", help="domain to query")
     # opts
+    parser.add_argument("-wb", "--wordlist-bruteforce", help="enable word list bruteforce module",
+                        action="store_true")
+    parser.add_argument("-wc", "--wordlist-count", help="set the count of the top words to use DEFAULT: 100",
+                        action="store_true", default=100)
+    parser.add_argument("-rb", "--raw-bruteforce", help="enable raw bruteforce module",
+                        action="store_true")
     parser.add_argument("-m", "--module", help="module to hit",
                         action="store")
     parser.add_argument("-o", "--output", help="output directory location (Ex. /users/test/)")
@@ -65,6 +71,7 @@ def main():
     pr.print_entry()
     args = cli_parse()
     logger = core_logger.CoreLogging()
+    pr.print_config_start()
     config = load_config(pr)
     config['args'] = args
     if args.debug:
