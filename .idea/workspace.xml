@@ -71,8 +71,8 @@
       <file leaf-file-name="setup.sh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/setup/setup.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="505">
+              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -162,7 +162,6 @@
         <option value="$PROJECT_DIR$/src/module_multiprocessing.py" />
         <option value="$PROJECT_DIR$/test_async.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/setup/setup.sh" />
         <option value="$PROJECT_DIR$/src/static_modules/core_progress.py" />
         <option value="$PROJECT_DIR$/src/core_logger.py" />
         <option value="$PROJECT_DIR$/src/core_printer.py" />
@@ -175,6 +174,7 @@
         <option value="$PROJECT_DIR$/src/core_processes.py" />
         <option value="$PROJECT_DIR$/src/static_modules/subdomain_bruteforce.py" />
         <option value="$PROJECT_DIR$/setup/requirements.txt" />
+        <option value="$PROJECT_DIR$/setup/setup.sh" />
       </list>
     </option>
   </component>
@@ -626,7 +626,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511792373243</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="1.0.2">
+      <created>1511792714058</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1511792714058</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1043,8 +1050,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/setup/setup.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="505">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -30,7 +30,7 @@ func_check_env(){
   fi
 }
 
-
+func_install(){
 # Setup virtual env
   pip install autoenv
   echo "source `which activate.sh`" >> ~/.bashrc
@@ -41,8 +41,6 @@ func_check_env(){
 
   pip install -r setup/requirments.txt
 
-  git clone https://github.com/blark/aiodnsbrute.git
-
 }
 
 
@@ -51,6 +49,7 @@ case $1 in
   *)
   func_title
   func_check_env
+  func_install
   ;;
 
 esac
