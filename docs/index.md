@@ -85,6 +85,32 @@ optional arguments:
                         WARNING only
 ```
 
+### Passive Collection
+Using just the dynamic modules, SimplyDomain will not attempt to brute force any `A` records. You can easily run SimplyDomain via the virtual-env by using the `cd` command into the `SimplyDomain` dir. This will activate the python virtual environment and allow you to use python3.6 within.
+
+```
+python3.6 SimplyDomain.py test.com
+```
+
+### Active Collection
+Enabling the wordlist brute force will allow you to discover new domains and attempt to brute force unknown or undiscovered domain names. Passing the `-wc` also allows you to specify up to the top 1 Million seen subdomains.
+
+```
+python3.6 SimplyDomain.py test.com -wb -wc 10000
+```
+
+### Output / Data Injector
+All runs by default create a folder structure based on the domain name and time, this also includes:
+* Grepable Text
+* JSON Object
+* Sorted Uniq Text File
+* XML (In dev)
+
+To change the location and output name use the following:
+
+```
+python3.6 SimplyDomain.py test.com -wb -wc 10000 -o /user/test/ -on foldername-to-pickup
+```
 
 ## Contributing
 This project is built with PyCharms and should be imported via the `.idea` Folder. Please make sure the following take place before submitting a pull request:
