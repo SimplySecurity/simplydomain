@@ -1,0 +1,19 @@
+# sudo false implies containerized builds
+sudo: ture
+
+language: python
+python:
+  - 3.6
+install:
+  - pip install coveralls
+  - pip install coverage
+  - pip install nose
+script:
+  - "curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash"
+  - "cd SimplyDomain"
+  - "source SD/bin/activate"
+  - "python3.6 ./SimplyDomain.py -l"
+  - nosetests --with-coverage
+after_success:
+  - coveralls
+  
