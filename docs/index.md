@@ -2,6 +2,9 @@ Subdomain brute force focused on speed and data serialization.
 SimplyDomain uses a framework approach to build and deploy modules within. This allows
 for fast, easy and concise output to feed into larger OSINT feeds.
 
+## Demo
+![GitHub Logo](/docs/sd-run.gif)
+
 ## Installation
 SimplyDomain is pure Python, and *should* support any platform. 
 
