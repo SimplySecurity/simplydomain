@@ -39,7 +39,7 @@ func_install(){
   source SD/bin/activate
 
 
-  pip install -r setup/requirements.txt
+  pip3 install -r setup/requirements.txt
 
 }
 
