@@ -3,7 +3,7 @@ SimplyDomain uses a framework approach to build and deploy modules within. This 
 for fast, easy and concise output to feed into larger OSINT feeds.
 
 ## Demo
-![GitHub Logo](/docs/sd-run.gif)
+![GitHub Logo](https://github.com/SimplySecurity/SimplyDomain/blob/master/docs/sd-run.gif)
 
 ## Installation
 SimplyDomain is pure Python, and *should* support any platform. 
