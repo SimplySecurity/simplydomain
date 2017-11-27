@@ -1,3 +1,4 @@
+ [![Code Health](https://landscape.io/github/SimplySecurity/SimplyDomain/master/landscape.svg?style=flat)](https://landscape.io/github/SimplySecurity/SimplyDomain/master)
  ![alt tag](https://images.unsplash.com/photo-1493606278519-11aa9f86e40a?auto=format&fit=crop&w=2250&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D "")
  
 # SimplyDomain
