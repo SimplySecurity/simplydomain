@@ -10,6 +10,7 @@ beautifulsoup4 == 4.6.0
 # src/static_modules/subdomain_bruteforce.py: 9
 click == 6.7
 
+
 # src/dynamic_modules/crtsh_search.py: 3
 crtsh == 0.1.0
 
