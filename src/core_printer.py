@@ -48,6 +48,26 @@ class CorePrinters(object):
         self.print_red_on_bold = lambda x: cprint(x, 'red', attrs=['bold'])
         self.print_white = lambda x: cprint(x, 'white')
 
+    def blue_text(self, msg):
+        """
+        Return green text obj.
+        :param msg: TEXT
+        :return: OBJ
+        """
+        s = colored(' [*] ', color='blue')
+        msg = s + msg
+        return msg
+
+    def green_text(self, msg):
+        """
+        Return green text obj.
+        :param msg: TEXT
+        :return: OBJ
+        """
+        s = colored(' [+] ', color='green')
+        msg = s + msg
+        return msg
+
     def print_entry(self):
         """
         Print entry screen to the project.

@@ -52,12 +52,12 @@ def load_config(pr):
     Loads .config.json file for use
     :return: dict obj
     """
-    pr.print_green(' [*] JSON Configuration file loaded: (NAME: %s)' % (_config_file_name))
+    print(pr.blue_text('JSON Configuration file loaded: (NAME: %s)' % (_config_file_name)))
     json_file = json.load(open(_config_file_name))
     ds = module_resolvers.DnsServers()
     ds.populate_servers()
     json_file = ds.populate_config(json_file)
-    pr.print_green(' [*] Public DNS resolvers populated: (SERVER COUNT: %s)' % (str(ds.count_resolvers())))
+    print(pr.blue_text('Public DNS resolvers populated: (SERVER COUNT: %s)' % (str(ds.count_resolvers()))))
     return json_file
 
 
@@ -75,7 +75,10 @@ def main():
     config = load_config(pr)
     config['args'] = args
     if args.debug:
+        pr.print_green_on_bold('[!] DEBUGGING ENABLED!')
         logger.start(logging.DEBUG)
+    else:
+        logger.start(logging.INFO)
     logger.infomsg('main', 'startup')
     if args.module:
         c = core_runtime.CoreRuntime(logger, config)

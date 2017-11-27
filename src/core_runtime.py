@@ -56,6 +56,7 @@ class CoreRuntime(module_loader.LoadModules,
         setup Q.
         :return: NONE
         """
+        self.print_d_module_start()
         self.populate_task_queue(self.modules)
         self.start_processes()
 
@@ -65,10 +66,10 @@ class CoreRuntime(module_loader.LoadModules,
         Execute only the dynamic modules.
         :return: NONE
         """
-        self.print_d_module_start()
+        self._start_thread_function(self._pbar_thread)
         while self.check_active():
             try:
-                time.sleep(1)
+                time.sleep(0.1)
             except KeyboardInterrupt:
                 self.print_red_on_bold("\n[!] CRITICAL: CTRL+C Captured - Trying to clean up!\n"
                                        "[!] WARNING: Press CTRL+C AGAIN to bypass and MANUALLY cleanup")
@@ -80,6 +81,8 @@ class CoreRuntime(module_loader.LoadModules,
                 except KeyboardInterrupt:
                     self.list_processes()
                     sys.exit(0)
+        # cleanup dynamic mod pbar
+        self.progress_bar_pickup.put(None)
 
     def execute_static(self):
         """

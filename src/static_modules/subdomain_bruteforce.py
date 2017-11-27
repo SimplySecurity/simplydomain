@@ -1,8 +1,14 @@
 import os
 import random
 import queue
+import asyncio
+import aiodns
+import functools
+import uvloop
+import socket
+import click
+from tqdm import tqdm
 
-from twisted.names import client
 from src import core_serialization
 from src import module_helpers
 
@@ -44,11 +50,12 @@ class DynamicModule(module_helpers.RequestsHelpers):
                             'with high quality dns resolvers.'],
 
             # authors or sources to be quoted
-            'Authors': ['@Killswitch-GUI'],
+            'Authors': ['@Killswitch-GUI', '@blark'],
 
             # list of resources or comments
             'comments': [
-                'Searches and performs recursive dns-lookup.'
+                'Searches and performs recursive dns-lookup.',
+                ' adapted from https://github.com/blark/aiodnsbrute/blob/master/aiodnsbrute/cli.py'
             ],
             # priority of module (0) being first to execute
             'priority': 0
@@ -58,6 +65,18 @@ class DynamicModule(module_helpers.RequestsHelpers):
         }
         # ~ queue object
         self.word_list_queue = queue.Queue(maxsize=0)
+        self.tasks = []
+        self.domain = ''
+        self.errors = []
+        self.fqdn = []
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+        self.loop = asyncio.get_event_loop()
+        self.resolver = aiodns.DNSResolver(loop=self.loop, rotate=True)
+        # TODO: make max tasks defined in config.json
+        self.max_tasks = 512
+        self.word_count = 0
+        # TODO: make total set from wordcount in config.json
+        self.sem = asyncio.BoundedSemaphore(self.max_tasks)
 
     def dynamic_main(self, queue_dict):
         """
@@ -78,23 +97,29 @@ class DynamicModule(module_helpers.RequestsHelpers):
         core_args = self.json_entry['args']
         core_resolvers = self.json_entry['resolvers']
         task_output_queue = queue_dict['task_output_queue']
-        self._populate_word_list_queue()
+        self.domain = str(core_args.DOMAIN)
         self._execute_resolve()
         cs = core_scrub.Scrub()
 
-    def _populate_word_list_queue(self):
+    async def _process_dns_wordlist(self):
         """
         Populates word list queue with words to brute
         force a domain with.
         :return: NONE
         """
-        word_count = int(self.json_entry['args'].wordlist_count)
+        self.word_count = int(self.json_entry['args'].wordlist_count)
         file_path = os.path.join(*self.json_entry['subdomain_bruteforce']['top_1000000'])
         with open(file_path) as myfile:
             # fancy iter so we can pull out only (N) lines
-            sub_doamins = [next(myfile).strip() for x in range(word_count)]
-        for sub in sub_doamins:
-            self.word_list_queue.put(sub)
+            sub_doamins = [next(myfile).strip() for x in range(self.word_count)]
+        for word in sub_doamins:
+            # Wait on the semaphore before adding more tasks
+            await self.sem.acquire()
+            host = '{}.{}'.format(word.strip(), self.domain)
+            task = asyncio.ensure_future(self._dns_lookup(host))
+            task.add_done_callback(functools.partial(self._dns_result_callback, host))
+            self.tasks.append(task)
+        await asyncio.gather(*self.tasks, return_exceptions=True)
 
     def _select_random_resolver(self):
         """
@@ -105,21 +130,79 @@ class DynamicModule(module_helpers.RequestsHelpers):
         ip = random.choice(self.json_entry['resolvers'])
         return ip
 
-    def _execute_resolve(self):
+    def _execute_resolve(self, recursive=True):
         """
-        Executes a single threaded process Twisted DNS resolver,
-        uses a queue to pop from stack.
+        Execs a single thread based / adapted from:
+        https://github.com/blark/aiodnsbrute/blob/master/aiodnsbrute/cli.py
         :return: NONE
         """
-        # pop a word off Q object
-        sub_word = self.word_list_queue.get()
-        url = sub_word + '.' + self.json_entry['args'].DOMAIN
-        test_url = 'ride.uber.com'
-        # create resolver object, set hosts to NULL to prevent local lookup
-        resolver_ip = self._select_random_resolver()
-        print(resolver_ip)
-        resolver = client.createResolver(servers=[(resolver_ip, 53)])
-        d = resolver.getHostByName(test_url)
-        input()
-        print(d.result)
+        try:
+            self.logger("Brute forcing {} with a maximum of {} concurrent tasks...".format(self.domain, self.max_tasks))
+            self.logger("Wordlist loaded, brute forcing {} DNS records".format(self.word_count))
+            # TODO: enable verbose
+            self.pbar = tqdm(total=100, unit="records", maxinterval=0.1, mininterval=0)
+            if recursive:
+                self.logger("Using recursive DNS with the following servers: {}".format(self.resolver.nameservers))
+            else:
+                domain_ns = self.loop.run_until_complete(self._dns_lookup(self.domain, 'NS'))
+                self.logger(
+                    "Setting nameservers to {} domain NS servers: {}".format(self.domain, [host.host for host in domain_ns]))
+                self.resolver.nameservers = [socket.gethostbyname(host.host) for host in domain_ns]
+            self.loop.run_until_complete(self._process_dns_wordlist())
+        except KeyboardInterrupt:
+            self.logger("Caught keyboard interrupt, cleaning up...")
+            asyncio.gather(*asyncio.Task.all_tasks()).cancel()
+            self.loop.stop()
+        finally:
+            self.loop.close()
+            # TODO: enable verbose
+            self.pbar.close()
+            self.logger("completed, {} subdomains found.".format(len(self.fqdn)))
+        return self.fqdn
 
+    def logger(self, msg, msg_type='info', level=0):
+        """A quick and dirty msfconsole style stdout logger."""
+        # TODO: enable verbose
+        style = {'info': ('[*]', 'blue'), 'pos': ('[+]', 'green'), 'err': ('[-]', 'red'),
+                 'warn': ('[!]', 'yellow'), 'dbg': ('[D]', 'cyan')}
+        if msg_type is not 0:
+            decorator = click.style('{}'.format(style[msg_type][0]), fg=style[msg_type][1], bold=True)
+        else:
+            decorator = ''
+        m = " {} {}".format(decorator, msg)
+        tqdm.write(m)
+
+    async def _dns_lookup(self, name, _type='A'):
+        """Performs a DNS request using aiodns, returns an asyncio future."""
+        response = await self.resolver.query(name, _type)
+        return response
+
+    def _dns_result_callback(self, name, future):
+        """Handles the result passed by the _dns_lookup function."""
+        # Record processed we can now release the lock
+        self.sem.release()
+        # Handle known exceptions, barf on other ones
+        if future.exception() is not None:
+            try:
+                err_num = future.exception().args[0]
+                err_text = future.exception().args[1]
+            except IndexError:
+                self.logger("Couldn't parse exception: {}".format(future.exception()), 'err')
+            if (err_num == 4): # This is domain name not found, ignore it.
+                pass
+            elif (err_num == 12): # Timeout from DNS server
+                self.logger("Timeout for {}".format(name), 'warn', 2)
+            elif (err_num == 1): # Server answered with no data
+                pass
+            else:
+                self.logger('{} generated an unexpected exception: {}'.format(name, future.exception()), 'err')
+            self.errors.append({'hostname': name, 'error': err_text})
+        # Output result
+        else:
+            ip = ', '.join([ip.host for ip in future.result()])
+            self.fqdn.append((name, ip))
+            self.logger("{:<30}\t{}".format(name, ip), 'pos')
+            #self.logger(future.result(), 'dbg', 3)
+        self.tasks.remove(future)
+        # TODO: enable verbose
+        self.pbar.update()
