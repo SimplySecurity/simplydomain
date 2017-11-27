@@ -4,16 +4,17 @@ sudo: ture
 language: python
 python:
   - 3.6
-# install: 
+install: 
+  - pip install nose
+  - pip install coverage
+  - pip install coveralls
 script:
-  - "pip install nose"
-  - "pip install coverage"
-  - "pip install coveralls"
-  - "curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash"
-  - "cd SimplyDomain"
-  - "source SD/bin/activate"
-  - "python3 SimplyDomain.py -l"
+  - git clone https://github.com/SimplySecurity/SimplyDomain.git
+  - cd SimplyDomain/setup/
+  - pip install -r requirements.txt
+  - cd ..
+  - python3 SimplyDomain.py -h
   - nosetests --with-coverage
 after_success:
-  - coveralls
+   - coveralls
   
