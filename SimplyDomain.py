@@ -8,7 +8,10 @@ import sys
 from src import core_printer
 from src import core_runtime
 
+from src import module_resolvers
 from src import core_logger
+
+_config_file_name = '.config.json'
 
 
 def cli_parse():
@@ -20,6 +23,12 @@ def cli_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument("DOMAIN", help="domain to query")
     # opts
+    parser.add_argument("-wb", "--wordlist-bruteforce", help="enable word list bruteforce module",
+                        action="store_true")
+    parser.add_argument("-wc", "--wordlist-count", help="set the count of the top words to use DEFAULT: 100",
+                        action="store", default=100, type=int)
+    parser.add_argument("-rb", "--raw-bruteforce", help="enable raw bruteforce module",
+                        action="store_true")
     parser.add_argument("-m", "--module", help="module to hit",
                         action="store")
     parser.add_argument("-o", "--output", help="output directory location (Ex. /users/test/)")
@@ -37,12 +46,19 @@ def cli_parse():
         print("[!] verbosity turned on")
     return args
 
-def load_config():
+
+def load_config(pr):
     """
     Loads .config.json file for use
     :return: dict obj
     """
-    return json.load(open('.config.json'))
+    print(pr.blue_text('JSON Configuration file loaded: (NAME: %s)' % (_config_file_name)))
+    json_file = json.load(open(_config_file_name))
+    ds = module_resolvers.DnsServers()
+    ds.populate_servers()
+    json_file = ds.populate_config(json_file)
+    print(pr.blue_text('Public DNS resolvers populated: (SERVER COUNT: %s)' % (str(ds.count_resolvers()))))
+    return json_file
 
 
 def main():
@@ -55,13 +71,18 @@ def main():
     pr.print_entry()
     args = cli_parse()
     logger = core_logger.CoreLogging()
-    config = load_config()
+    pr.print_config_start()
+    config = load_config(pr)
     config['args'] = args
     if args.debug:
+        pr.print_green_on_bold('[!] DEBUGGING ENABLED!')
         logger.start(logging.DEBUG)
+    else:
+        logger.start(logging.INFO)
     logger.infomsg('main', 'startup')
     if args.module:
-        print()
+        c = core_runtime.CoreRuntime(logger, config)
+        c.execute_mp()
     elif args.list:
         c = core_runtime.CoreRuntime(logger, config)
         c.list_modules()

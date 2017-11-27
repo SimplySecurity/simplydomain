@@ -19,7 +19,22 @@ class CorePrinters(object):
      $$$$$$/ $$$$$$$/  $$$$$$/ $$/  $$/  $$/ $$$$$$$/$$/$$/   $$/ 
     ------------------------------------------------------------                                                                                              
     """
+    __config_startup = """
+ *----------------------------------*
+ |   CONFIGURATION INITIALIZATION   |
+ *----------------------------------*
+        """
 
+    __d_module_change = """
+ *----------------------------------*
+ |  DYNAMIC MODULES INITIALIZATION  |
+ *----------------------------------*
+    """
+    __s_module_change = """
+ *----------------------------------*
+ |   STATIC MODULES INITIALIZATION  |
+ *----------------------------------*
+    """
     def __init__(self):
         """
         INIT class object and define
@@ -33,12 +48,53 @@ class CorePrinters(object):
         self.print_red_on_bold = lambda x: cprint(x, 'red', attrs=['bold'])
         self.print_white = lambda x: cprint(x, 'white')
 
+    def blue_text(self, msg):
+        """
+        Return green text obj.
+        :param msg: TEXT
+        :return: OBJ
+        """
+        s = colored(' [*] ', color='blue')
+        msg = s + msg
+        return msg
+
+    def green_text(self, msg):
+        """
+        Return green text obj.
+        :param msg: TEXT
+        :return: OBJ
+        """
+        s = colored(' [+] ', color='green')
+        msg = s + msg
+        return msg
+
     def print_entry(self):
         """
         Print entry screen to the project.
         :return: NONE
         """
         self.print_green_on_bold(self.__title_screen)
+
+    def print_d_module_start(self):
+        """
+        Print entry to dynamic modules
+        :return: 
+        """
+        self.print_yellow(self.__d_module_change)
+
+    def print_s_module_start(self):
+        """
+        Print entry to dynamic modules
+        :return:
+        """
+        self.print_yellow(self.__s_module_change)
+
+    def print_config_start(self):
+        """
+        Print entry to dynamic modules
+        :return:
+        """
+        self.print_yellow(self.__config_startup)
 
     def print_modules(self, module_list):
         """
@@ -77,8 +133,6 @@ class CorePrinters(object):
             self.print_yellow_on_bold(" %s" % ('{0: <24}'.format(name).ljust(40)))
             print(json.dumps(dm.info, indent=4))
             print("-" * 60)
-
-
 
 
     def formatLong(self, title, message, frontTab=True, spacing=16):

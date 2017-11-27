@@ -50,17 +50,26 @@ class CoreRuntime(module_loader.LoadModules,
         self.output_json(self.serialize_json_output)
         self.output_text_std(self.serialize_json_output)
 
-    def execute_mp(self):
+
+    def execute_startup(self):
         """
-        Executes all the Dynamic Modules to be 
-        sent to processes
-        :return: 
+        setup Q.
+        :return: NONE
         """
+        self.print_d_module_start()
         self.populate_task_queue(self.modules)
         self.start_processes()
+
+
+    def execute_dynamic(self):
+        """
+        Execute only the dynamic modules.
+        :return: NONE
+        """
+        self._start_thread_function(self._pbar_thread)
         while self.check_active():
             try:
-                time.sleep(1)
+                time.sleep(0.1)
             except KeyboardInterrupt:
                 self.print_red_on_bold("\n[!] CRITICAL: CTRL+C Captured - Trying to clean up!\n"
                                        "[!] WARNING: Press CTRL+C AGAIN to bypass and MANUALLY cleanup")
@@ -72,9 +81,40 @@ class CoreRuntime(module_loader.LoadModules,
                 except KeyboardInterrupt:
                     self.list_processes()
                     sys.exit(0)
-        self.join_processes()
-        self.join_threads()
-        self.execute_output()
+        # cleanup dynamic mod pbar
+        self.progress_bar_pickup.put(None)
+        self.close_progress_bar()
+
+    def execute_static(self):
+        """
+        Execute static modules in sorted order by EXEC order.
+        :return: NONE
+        """
+        self.print_s_module_start()
+        queue_dict = {
+            'task_queue': self.task_queue,
+            'task_output_queue': self.task_output_queue
+        }
+        if self.config['args'].wordlist_bruteforce:
+            self.execute_process('src/static_modules/subdomain_bruteforce.py', self.config, queue_dict)
+
+    def execute_mp(self):
+        """
+        Executes all the Dynamic Modules to be 
+        sent to processes
+        :return: 
+        """
+        try:
+            # startup
+            self.execute_startup()
+            self.execute_dynamic()
+            self.execute_static()
+        finally:
+            # cleanup
+            self.join_processes()
+            self.join_threads()
+            self.execute_output()
+
 
 
 

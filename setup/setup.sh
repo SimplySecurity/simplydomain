@@ -41,6 +41,8 @@ func_check_env(){
 
   pip install -r setup/requirments.txt
 
+  git clone https://github.com/blark/aiodnsbrute.git
+
 }
 
 

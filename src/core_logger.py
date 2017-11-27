@@ -7,7 +7,7 @@ class CoreLogging(object):
     def __init__(self):
         self.name = ".SimplyDns.log"
 
-    def start(self, level=logging.WARNING):
+    def start(self, level=logging.INFO):
         logger = logging.getLogger("SimplyDns")
         logger.setLevel(level)
         fh = logging.FileHandler(self.name)
