@@ -32,6 +32,7 @@ func_check_env(){
 
 func_install(){
 # Setup virtual env
+  apt-get install python3.6
   pip install autoenv
   echo "source `which activate.sh`" >> ~/.bashrc
   apt-get install python-virtualenv -y
@@ -39,7 +40,7 @@ func_install(){
   source SD/bin/activate
 
 
-  pip3 install -r setup/requirements.txt
+  python3.6 -m pip install -r setup/requirements.txt
 
 }
 
