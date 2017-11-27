@@ -76,7 +76,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
             if item == None:
                 break
             if self.task_output_queue.empty():
-                time.sleep(0.1)
+                pass
+                #time.sleep(0.1)
 
     def populate_task_queue(self, modules):
         """
@@ -124,7 +125,6 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
                 print(e)
             if dm == None:
                 self.close_progress_bar()
-                self.progress_print('pill')
                 break
             if dm:
                 if dm[0] == 'complete':

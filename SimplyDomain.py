@@ -26,7 +26,7 @@ def cli_parse():
     parser.add_argument("-wb", "--wordlist-bruteforce", help="enable word list bruteforce module",
                         action="store_true")
     parser.add_argument("-wc", "--wordlist-count", help="set the count of the top words to use DEFAULT: 100",
-                        action="store_true", default=100)
+                        action="store", default=100, type=int)
     parser.add_argument("-rb", "--raw-bruteforce", help="enable raw bruteforce module",
                         action="store_true")
     parser.add_argument("-m", "--module", help="module to hit",

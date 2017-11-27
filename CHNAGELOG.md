@@ -1,7 +1,24 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+
+
+## [1.0.2] - 2017-11-26
+### Added
+- progress bar on main search
+- progress bar write
+- now prints subdomain to std.out
+- new msg queue for output
+- _pbar_thread() for output
+
+### Changed
+- broke up static vs dynamic modules
+- core_runtime now executes dynamic than static
+- runtime / process improvements 
+- print style to metasploit look / feel
+
+### Removed
+- N/A
 
 ## [1.0.1] - 2017-11-23
 ### Added

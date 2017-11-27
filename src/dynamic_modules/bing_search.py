@@ -108,4 +108,4 @@ class DynamicModule(module_helpers.RequestsHelpers):
                 task_output_queue.put(sub_obj)
                 # results inc at rate of 10 per page
             start_count += 10
-            time.sleep(2)
+            time.sleep(0.5)

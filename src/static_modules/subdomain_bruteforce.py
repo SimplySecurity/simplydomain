@@ -7,6 +7,7 @@ import functools
 import uvloop
 import socket
 import click
+import time
 from tqdm import tqdm
 
 from src import core_serialization
@@ -64,6 +65,7 @@ class DynamicModule(module_helpers.RequestsHelpers):
         self.options = {
         }
         # ~ queue object
+        self.word_count = int(self.json_entry['args'].wordlist_count)
         self.word_list_queue = queue.Queue(maxsize=0)
         self.tasks = []
         self.domain = ''
@@ -74,9 +76,11 @@ class DynamicModule(module_helpers.RequestsHelpers):
         self.resolver = aiodns.DNSResolver(loop=self.loop, rotate=True)
         # TODO: make max tasks defined in config.json
         self.max_tasks = 512
-        self.word_count = 0
         # TODO: make total set from wordcount in config.json
         self.sem = asyncio.BoundedSemaphore(self.max_tasks)
+        self.cs = core_scrub.Scrub()
+        self.core_args = self.json_entry['args']
+        self.core_resolvers = self.json_entry['resolvers']
 
     def dynamic_main(self, queue_dict):
         """
@@ -94,12 +98,9 @@ class DynamicModule(module_helpers.RequestsHelpers):
 
         :return: NONE
         """
-        core_args = self.json_entry['args']
-        core_resolvers = self.json_entry['resolvers']
-        task_output_queue = queue_dict['task_output_queue']
-        self.domain = str(core_args.DOMAIN)
+        self.task_output_queue = queue_dict['task_output_queue']
+        self.domain = str(self.core_args.DOMAIN)
         self._execute_resolve()
-        cs = core_scrub.Scrub()
 
     async def _process_dns_wordlist(self):
         """
@@ -107,7 +108,6 @@ class DynamicModule(module_helpers.RequestsHelpers):
         force a domain with.
         :return: NONE
         """
-        self.word_count = int(self.json_entry['args'].wordlist_count)
         file_path = os.path.join(*self.json_entry['subdomain_bruteforce']['top_1000000'])
         with open(file_path) as myfile:
             # fancy iter so we can pull out only (N) lines
@@ -140,14 +140,16 @@ class DynamicModule(module_helpers.RequestsHelpers):
             self.logger("Brute forcing {} with a maximum of {} concurrent tasks...".format(self.domain, self.max_tasks))
             self.logger("Wordlist loaded, brute forcing {} DNS records".format(self.word_count))
             # TODO: enable verbose
-            self.pbar = tqdm(total=100, unit="records", maxinterval=0.1, mininterval=0)
+            self.pbar = tqdm(total=self.word_count, unit="records", maxinterval=0.1, mininterval=0)
             if recursive:
                 self.logger("Using recursive DNS with the following servers: {}".format(self.resolver.nameservers))
             else:
                 domain_ns = self.loop.run_until_complete(self._dns_lookup(self.domain, 'NS'))
+                print(domain_ns)
                 self.logger(
                     "Setting nameservers to {} domain NS servers: {}".format(self.domain, [host.host for host in domain_ns]))
                 self.resolver.nameservers = [socket.gethostbyname(host.host) for host in domain_ns]
+                #self.resolver.nameservers = self.core_resolvers
             self.loop.run_until_complete(self._process_dns_wordlist())
         except KeyboardInterrupt:
             self.logger("Caught keyboard interrupt, cleaning up...")
@@ -199,10 +201,24 @@ class DynamicModule(module_helpers.RequestsHelpers):
             self.errors.append({'hostname': name, 'error': err_text})
         # Output result
         else:
+            self.cs.subdomain = name
+            # check if domain name is valid
+            valid = self.cs.validate_domain()
+            # build the SubDomain Object to pass
+            sub_obj = core_serialization.SubDomain(
+                self.info["Name"],
+                self.info["Module"],
+                "https://crt.sh",
+                self.info["Version"],
+                time.time(),
+                name,
+                valid
+            )
+            self.task_output_queue.put(sub_obj)
             ip = ', '.join([ip.host for ip in future.result()])
             self.fqdn.append((name, ip))
-            self.logger("{:<30}\t{}".format(name, ip), 'pos')
-            #self.logger(future.result(), 'dbg', 3)
+            # self.logger("{:<30}\t{}".format(name, ip), 'pos')
+            # self.logger(future.result(), 'dbg', 3)
         self.tasks.remove(future)
         # TODO: enable verbose
         self.pbar.update()

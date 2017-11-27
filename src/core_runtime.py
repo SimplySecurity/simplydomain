@@ -83,6 +83,7 @@ class CoreRuntime(module_loader.LoadModules,
                     sys.exit(0)
         # cleanup dynamic mod pbar
         self.progress_bar_pickup.put(None)
+        self.close_progress_bar()
 
     def execute_static(self):
         """

@@ -37,13 +37,13 @@ class CoreProgress(object):
         """
         self.progress_bar.write(msg_obj)
 
-    def start_progress_bar(self, count):
+    def start_progress_bar(self, count, maxinterval=1, mininterval=0):
         """
         Start up pbar and show on screen.
         :param count: count of modules
         :return: NONE
         """
-        self.progress_bar = tqdm(total=count, unit="module", maxinterval=1, mininterval=0)
+        self.progress_bar = tqdm(total=count, unit="module", maxinterval=maxinterval, mininterval=mininterval)
 
     def inc_progress_bar(self, size=0):
         """
