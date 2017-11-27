@@ -6,13 +6,13 @@ python:
   - 3.6
 # install: 
 script:
-  - "curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash"
-  - "cd SimplyDomain"
-  - "source SD/bin/activate"
-  - "python3.6 ./SimplyDomain.py -l"
   - "pip install nose"
   - "pip install coverage"
   - "pip install coveralls"
+  - "curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash"
+  - "cd SimplyDomain"
+  - "source SD/bin/activate"
+  - "python3 SimplyDomain.py -l"
   - nosetests --with-coverage
 after_success:
   - coveralls
