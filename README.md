@@ -12,3 +12,10 @@ https://simplysecurity.github.io/SimplyDomain/
 
 [CHANGELOG]
 https://github.com/SimplySecurity/SimplyDomain/blob/master/CHNAGELOG.md
+
+### TL;DR
+```
+root@kali:~# curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash
+root@kali:~# cd SimplyDomain
+(SD) root@kali:~/SimplyDomain# ./SimplyDomain.py
+```
