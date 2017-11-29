@@ -1,6 +1,6 @@
  [![Build Status](https://travis-ci.org/SimplySecurity/SimplyDomain.svg?branch=master)](https://travis-ci.org/SimplySecurity/SimplyDomain)
  [![Code Health](https://landscape.io/github/SimplySecurity/SimplyDomain/master/landscape.svg?style=flat)](https://landscape.io/github/SimplySecurity/SimplyDomain/master)
- ![Alt text](docs/Simplydomain.png?raw=true "SimplyDomain")
+ ![Alt text](docs/SimplyDomain.png?raw=true "SimplyDomain")
  
 # SimplyDomain
 Subdomain brute force focused on speed and data serialization. 
