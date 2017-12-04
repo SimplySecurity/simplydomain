@@ -20,7 +20,7 @@ echo "Building Version: $VERSION"
 ./build.sh
 
 # TAG IT
-git add -A
+git add --all
 git commit -m "version $VERSION"
 git tag -a "$VERSION" -m "version $VERSION"
 git push
