@@ -28,7 +28,7 @@ git tag -a "$VERSION" -m "version $VERSION"
 git push origin "Version-$VERSION"
 git push origin "Version-$VERSION" --tags
 git checkout master
-
+git merge "Version-$VERSION"
 
 # DOCKER TAG/VERSIONING
 docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$VERSION
