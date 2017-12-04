@@ -7,6 +7,11 @@ for fast, easy and concise output to feed into larger OSINT feeds.
 
 ## Installation
 SimplyDomain is pure Python, and *should* support any platform. 
+**Docker Install**
+```bash
+docker pull simplysecurity/simplydomain
+```
+
 
 **One-line** install with bash:
 ```bash
