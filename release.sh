@@ -27,6 +27,7 @@ git commit -m "version $VERSION"
 git tag -a "$VERSION" -m "version $VERSION"
 git push origin "Version-$VERSION"
 git push origin "Version-$VERSION" --tags
+git checkout master
 
 
 # DOCKER TAG/VERSIONING
