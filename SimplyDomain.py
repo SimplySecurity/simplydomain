@@ -44,7 +44,7 @@ def cli_parse():
     args = parser.parse_args()
     if args.verbose:
         print("[!] verbosity turned on")
-    return args
+    return args, parser
 
 
 def load_config(pr):
@@ -69,7 +69,7 @@ def main():
     """
     pr = core_printer.CorePrinters()
     pr.print_entry()
-    args = cli_parse()
+    args, parser = cli_parse()
     logger = core_logger.CoreLogging()
     pr.print_config_start()
     config = load_config(pr)
@@ -81,6 +81,8 @@ def main():
         logger.start(logging.INFO)
     logger.infomsg('main', 'startup')
     if args.module:
+        if not args.DOMAIN:
+            parser.print_help()
         c = core_runtime.CoreRuntime(logger, config)
         c.execute_mp()
     elif args.list:
@@ -90,6 +92,8 @@ def main():
         c = core_runtime.CoreRuntime(logger, config)
         c.list_modules_long()
     else:
+        if not args.DOMAIN:
+            parser.print_help()
         c = core_runtime.CoreRuntime(logger, config)
         c.execute_mp()
 

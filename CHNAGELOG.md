@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2017-11-26
+### Added
+- add docker image
+- add build.sh
+- add release.sh
 
 
 ## [1.0.2] - 2017-11-26
