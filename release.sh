@@ -19,12 +19,16 @@ echo "Building Version: $VERSION"
 # START BUILD
 ./build.sh
 
+
 # TAG IT
+git checkout -b "Version-$VERSION"
 git add --all
 git commit -m "version $VERSION"
 git tag -a "$VERSION" -m "version $VERSION"
-git push
-git push --tags
+git push origin "Version-$VERSION"
+git push origin "Version-$VERSION" --tags
+git checkout master
+
 
 # DOCKER TAG/VERSIONING
 docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$VERSION
