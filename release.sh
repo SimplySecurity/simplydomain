@@ -2,8 +2,8 @@
 set -ex
 
 # SET THE FOLLOWING VARIABLES
-USERNAME=empireproject
-IMAGE=empire
+USERNAME=simplysecurity
+IMAGE=simplydomain
 
 # UPDATE THE SOURCE CODE
 git pull
