@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.-7] - 2017-12-04
+## [1.0.8] - 2017-12-04
+### Added
+- add code coverage with coveralls.io
+- add code .coveragerc file for build
+
+## [1.0.7] - 2017-12-04
 ### Added
 - add OSX & Linux CI to expand coverage
 
