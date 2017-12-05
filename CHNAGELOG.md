@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.-5] - 2017-12-04
+## [1.0.-7] - 2017-12-04
+### Added
+- add OSX & Linux CI to expand coverage
+
+
+## [1.0.6] - 2017-12-04
 ### Added
 - update readme to add TL;DR docker
 

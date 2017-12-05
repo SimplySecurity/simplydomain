@@ -1,5 +1,8 @@
 # sudo false implies containerized builds
 sudo: ture
+os:
+  - linux
+  - osx
 
 language: python
 python:
