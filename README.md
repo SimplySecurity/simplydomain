@@ -1,7 +1,8 @@
  [![Build Status](https://travis-ci.org/SimplySecurity/SimplyDomain.svg?branch=master)](https://travis-ci.org/SimplySecurity/SimplyDomain)
+  [![Coverage Status](https://coveralls.io/repos/github/SimplySecurity/SimplyDomain/badge.svg?branch=master)](https://coveralls.io/github/SimplySecurity/SimplyDomain?branch=master)
  [![Code Health](https://landscape.io/github/SimplySecurity/SimplyDomain/master/landscape.svg?style=flat)](https://landscape.io/github/SimplySecurity/SimplyDomain/master)
  ![Alt text](docs/SimplyDomain-logo.png?raw=true "SimplyDomain")
- [![Coverage Status](https://coveralls.io/repos/github/SimplySecurity/SimplyDomain/badge.svg?branch=master)](https://coveralls.io/github/SimplySecurity/SimplyDomain?branch=master)
+
  
 # SimplyDomain
 Subdomain brute force focused on speed and data serialization. 
