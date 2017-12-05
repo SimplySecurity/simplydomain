@@ -133,29 +133,3 @@ class CorePrinters(object):
             self.print_yellow_on_bold(" %s" % ('{0: <24}'.format(name).ljust(40)))
             print(json.dumps(dm.info, indent=4))
             print("-" * 60)
-
-
-    def formatLong(self, title, message, frontTab=True, spacing=16):
-        """
-        Print a long title:message with our standardized formatting.
-        Wraps multiple lines into a nice paragraph format.
-        """
-
-        lines = textwrap.wrap(textwrap.dedent(message).strip(), width=50)
-        returnstring = ""
-
-        i = 1
-        if len(lines) > 0:
-            if frontTab:
-                returnstring += "\t%s%s" % (('{0: <%s}' %
-                                             spacing).format(title), lines[0])
-            else:
-                returnstring += " %s%s" % (('{0: <%s}' %
-                                            (spacing-1)).format(title), lines[0])
-        while i < len(lines):
-            if frontTab:
-                returnstring += "\n\t"+' '*spacing+lines[i]
-            else:
-                returnstring += "\n"+' '*spacing+lines[i]
-            i += 1
-        return returnstring

@@ -14,3 +14,4 @@ omit =
     */site-packages/nose/*
     *__init__*
     */thrid_party/*
+    */tests/*
