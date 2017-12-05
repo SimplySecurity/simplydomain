@@ -14,8 +14,13 @@ https://simplysecurity.github.io/SimplyDomain/
 https://github.com/SimplySecurity/SimplyDomain/blob/master/CHNAGELOG.md
 
 ### TL;DR
-```
+```bash
 root@kali:~# curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash
 root@kali:~# cd SimplyDomain
 (SD) root@kali:~/SimplyDomain# ./SimplyDomain.py
+```
+or
+```bash
+root@kali:~# docker pull simplysecurity/simplydomain
+root@kali:~# docker run -ti simplysecurity/simplydomain
 ```

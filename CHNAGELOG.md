@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.-5] - 2017-12-04
+### Added
+- update readme to add TL;DR docker
+
+## [1.0.-5] - 2017-12-04
+### Added
+- update build.sh to auto release and publish
+
 ## [1.0.3] - 2017-11-26
 ### Added
 - add docker image
