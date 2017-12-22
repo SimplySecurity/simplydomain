@@ -2,7 +2,6 @@
 sudo: ture
 os:
   - linux
-  - osx
 
 language: python
 python:
