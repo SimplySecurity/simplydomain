@@ -32,6 +32,8 @@ func_check_env(){
 
 func_install(){
 # Setup virtual env
+  add-apt-repository ppa:jonathonf/python-3.6
+  apt-get update
   apt-get install python3.6
   pip install autoenv
   echo "source `which activate.sh`" >> ~/.bashrc
