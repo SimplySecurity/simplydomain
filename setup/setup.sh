@@ -38,7 +38,7 @@ func_install(){
   pip install autoenv
   echo "source `which activate.sh`" >> ~/.bashrc
   apt-get install python-virtualenv -y
-  virtualenv --no-site-packages SD
+  virtualenv -p python3.6 --no-site-packages SD
   source SD/bin/activate
 
 
