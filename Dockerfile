@@ -19,7 +19,7 @@ pip3 install -r setup/requirements.txt
 ENV HOME=/SimplyDomain
 
 # set working startup dir
-WORKDIR "/simplyDomain"
+WORKDIR "/SimplyDomain"
 ENTRYPOINT ["python", "SimplyDomain.py"]
 
 # -----END OF BUILD-----
