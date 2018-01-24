@@ -20,6 +20,6 @@ ENV HOME=/SimplyDomain
 
 # set working startup dir
 WORKDIR "/simplyDomain"
-ENTRYPOINT ["python SimplyDomain.py"]
+ENTRYPOINT ["python", "SimplyDomain.py"]
 
 # -----END OF BUILD-----
