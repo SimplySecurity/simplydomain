@@ -208,7 +208,7 @@ class DynamicModule(module_helpers.RequestsHelpers):
             sub_obj = core_serialization.SubDomain(
                 self.info["Name"],
                 self.info["Module"],
-                "https://crt.sh",
+                "",
                 self.info["Version"],
                 time.time(),
                 name,
