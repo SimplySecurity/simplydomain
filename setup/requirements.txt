@@ -19,7 +19,7 @@ dnsdumpster == 0.3
 
 # src/module_helpers.py: 3
 # src/module_resolvers.py: 1
-fake_useragent == 0.1.8
+fake_useragent == 0.1.10
 
 # SimplyDomain.py: 8,9,11,12
 # src/dynamic_modules/bing_search.py: 5,6,8
