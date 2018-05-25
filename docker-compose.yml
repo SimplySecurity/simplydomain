@@ -1,0 +1,4 @@
+simplydomain:
+  image: simplydomain
+  volumes: 
+    - ./:/SimplyDomain
