@@ -1,5 +1,0 @@
-simplydomain:
-  build: .
-  dockerfile: Dockerfile
-  volumes: 
-    - ./:/SimplyDomain
