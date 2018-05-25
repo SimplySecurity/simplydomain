@@ -73,7 +73,7 @@ class DynamicModule(object):
         rd = []
         data = crtshAPI().search(str(core_args.DOMAIN))
         for d in data:
-            cs.subdomain = d['domain']
+            cs.subdomain = d['issuer']
             # check if domain name is valid
             valid = cs.validate_domain()
             # build the SubDomain Object to pass
