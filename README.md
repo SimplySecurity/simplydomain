@@ -28,5 +28,5 @@ root@kali:~/SimplyDomain# ./SimplyDomain.py
 ```bash
 docker pull simplysecurity/simplydomain
 docker create -v ~/.simplydomain:/SimplyDomain --name sd-data simplysecurity/simplydomain
-docker run -d --volumes-from sd-data -ti simplysecurity/simplydomain -h
+docker run --volumes-from sd-data -ti simplysecurity/simplydomain -h
 ```
