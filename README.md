@@ -29,10 +29,3 @@ root@kali:~/SimplyDomain# ./SimplyDomain.py
 root@kali:~# docker pull simplysecurity/simplydomain
 root@kali:~# docker run -ti simplysecurity/simplydomain
 ```
-
-#### Via Docker-Compose
-```bash
-root@kali:~# git clone https://github.com/SimplySecurity/SimplyDomain.git
-root@kali:~# cd SimplyDomain
-root@kali:~# docker-compose up
-```
