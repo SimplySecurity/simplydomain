@@ -1,4 +1,5 @@
 simplydomain:
-  image: simplydomain
+  build: .
+  dockerfile: Dockerfile
   volumes: 
     - ./:/SimplyDomain
