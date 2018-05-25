@@ -83,7 +83,7 @@ class DynamicModule(object):
                 "https://crt.sh",
                 self.info["Version"],
                 time.time(),
-                d['domain'],
+                d['issuer'],
                 valid
             )
             # populate queue with return data objects
