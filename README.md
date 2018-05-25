@@ -17,13 +17,22 @@ https://github.com/SimplySecurity/SimplyDomain/blob/master/CHNAGELOG.md
 [HELP/QUESTIONS/CHAT] Join us at: https://simplysecurity.herokuapp.com
 
 ### TL;DR
+
+#### Via cURL
 ```bash
 root@kali:~# curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash
 root@kali:~# cd SimplyDomain
 root@kali:~/SimplyDomain# ./SimplyDomain.py
 ```
-or
+#### Via Docker
 ```bash
 root@kali:~# docker pull simplysecurity/simplydomain
 root@kali:~# docker run -ti simplysecurity/simplydomain
+```
+
+#### Via Docker-Compose
+```bash
+root@kali:~# git clone https://github.com/SimplySecurity/SimplyDomain.git
+root@kali:~# cd SimplyDomain
+root@kali:~# docker-compose up
 ```
