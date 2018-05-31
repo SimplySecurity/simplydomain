@@ -30,7 +30,7 @@ class CoreRuntime(module_loader.LoadModules,
         List the modules loaded.
         :return: 
         """
-        self.logger.debugmsg('tasked to list modules', 'CoreRuntime')
+        self.logger.infomsg('tasked to list modules', 'CoreRuntime')
         self.print_modules(self.modules)
 
     def list_modules_long(self):
@@ -38,7 +38,7 @@ class CoreRuntime(module_loader.LoadModules,
         List the modules loaded.
         :return: 
         """
-        self.logger.debugmsg('tasked to list modules', 'CoreRuntime')
+        self.logger.infomsg('tasked to list modules', 'CoreRuntime')
         self.print_modules_long(self.modules)
 
     def execute_output(self):
@@ -46,6 +46,7 @@ class CoreRuntime(module_loader.LoadModules,
         Execute the output of formatted data stucs.
         :return: NONE
         """
+        self.logger.infomsg('starting execute_output()', 'CoreRuntime')
         self.output_text(self.serialize_json_output)
         self.output_json(self.serialize_json_output)
         self.output_text_std(self.serialize_json_output)
@@ -56,8 +57,11 @@ class CoreRuntime(module_loader.LoadModules,
         setup Q.
         :return: NONE
         """
+        self.logger.infomsg('execute_startup() setup began', 'CoreRuntime')
         self.print_d_module_start()
+        self.logger.infomsg('execute_startup() start to populate task queue', 'CoreRuntime')
         self.populate_task_queue(self.modules)
+        self.logger.infomsg('execute_startup() start to create hollow processes for future work', 'CoreRuntime')
         self.start_processes()
 
 
@@ -66,11 +70,14 @@ class CoreRuntime(module_loader.LoadModules,
         Execute only the dynamic modules.
         :return: NONE
         """
+        self.logger.infomsg('execute_dynamic() start ONLY dynamic modules', 'CoreRuntime')
         self._start_thread_function(self._pbar_thread)
         while self.check_active():
             try:
-                time.sleep(0.1)
+                self.logger.infomsg('execute_dynamic() checking for active PIDs', 'CoreRuntime')
+                time.sleep(2)
             except KeyboardInterrupt:
+                self.logger.warningmsg('execute_dynamic() CRITICAL: CTRL+C Captured', 'CoreRuntime')
                 self.print_red_on_bold("\n[!] CRITICAL: CTRL+C Captured - Trying to clean up!\n"
                                        "[!] WARNING: Press CTRL+C AGAIN to bypass and MANUALLY cleanup")
                 try:
@@ -82,6 +89,7 @@ class CoreRuntime(module_loader.LoadModules,
                     self.list_processes()
                     sys.exit(0)
         # cleanup dynamic mod pbar
+        self.logger.infomsg('execute_dynamic() dynamic modules completed', 'CoreRuntime')
         self.progress_bar_pickup.put(None)
         self.close_progress_bar()
 
@@ -90,6 +98,7 @@ class CoreRuntime(module_loader.LoadModules,
         Execute static modules in sorted order by EXEC order.
         :return: NONE
         """
+        self.logger.infomsg('execute_static() start ONLY static modules', 'CoreRuntime')
         self.print_s_module_start()
         queue_dict = {
             'task_queue': self.task_queue,
@@ -97,6 +106,9 @@ class CoreRuntime(module_loader.LoadModules,
         }
         if self.config['args'].wordlist_bruteforce:
             self.execute_process('src/static_modules/subdomain_bruteforce.py', self.config, queue_dict)
+        if self.config['args'].raw_bruteforce:
+            self.execute_process('src/static_modules/subdomain_raw_bruteforce.py', self.config, queue_dict)
+        self.logger.infomsg('execute_static() static modules completed', 'CoreRuntime')
 
     def execute_mp(self):
         """

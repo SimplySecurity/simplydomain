@@ -13,6 +13,13 @@ from src import core_logger
 
 _config_file_name = '.config.json'
 
+def _raw_depth_check(value):
+    ivalue = int(value)
+    if ivalue <= 0:
+        raise argparse.ArgumentTypeError("%s is an invalid positive int value" % value)
+    if ivalue >= 6:
+        raise argparse.ArgumentTypeError("%s is too large of a keyspace for raw depth" % value)
+    return ivalue
 
 def cli_parse():
     """
@@ -29,6 +36,8 @@ def cli_parse():
                         action="store", default=100, type=int)
     parser.add_argument("-rb", "--raw-bruteforce", help="enable raw bruteforce module",
                         action="store_true")
+    parser.add_argument("-rd", "--raw-depth", help="set the count of depth to raw bruteforce DEFAULT: 3",
+                        action="store", default=3, type=_raw_depth_check)
     parser.add_argument("-m", "--module", help="module to hit",
                         action="store")
     parser.add_argument("-o", "--output", help="output directory location (Ex. /users/test/)")

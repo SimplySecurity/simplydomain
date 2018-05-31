@@ -8,8 +8,9 @@ import uvloop
 import socket
 import click
 import time
+import string
 from tqdm import tqdm
-
+from itertools import product
 from src import core_serialization
 from src import module_helpers
 
@@ -65,12 +66,13 @@ class DynamicModule(module_helpers.RequestsHelpers):
         self.options = {
         }
         # ~ queue object
-        self.word_count = int(self.json_entry['args'].wordlist_count)
+        self.word_count = int(self.json_entry['args'].raw_depth)
         self.word_list_queue = queue.Queue(maxsize=0)
         self.tasks = []
         self.domain = ''
         self.errors = []
         self.fqdn = []
+        self.sub_gen_count = 0 
         asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
         self.loop = asyncio.get_event_loop()
         self.resolver = aiodns.DNSResolver(loop=self.loop, rotate=True)
@@ -108,10 +110,13 @@ class DynamicModule(module_helpers.RequestsHelpers):
         force a domain with.
         :return: NONE
         """
-        file_path = os.path.join(*self.json_entry['subdomain_bruteforce']['top_1000000'])
-        with open(file_path) as myfile:
-            # fancy iter so we can pull out only (N) lines
-            sub_doamins = [next(myfile).strip() for x in range(self.word_count)]
+        # fancy iter so we can pull out only (N) lines
+        sub_doamins = []
+        for x in range(1,self.word_count+1,1):
+            sub_doamins += [''.join(i) for i in product(string.ascii_lowercase + string.digits, repeat = x)]
+        self.sub_gen_count = len(sub_doamins)
+        # move pbar here to ensure we have proper count at start 
+        self.pbar = tqdm(total=self.sub_gen_count, unit="records", maxinterval=0.1, mininterval=0)
         for word in sub_doamins:
             # Wait on the semaphore before adding more tasks
             await self.sem.acquire()
@@ -138,9 +143,8 @@ class DynamicModule(module_helpers.RequestsHelpers):
         """
         try:
             self.logger("Brute forcing {} with a maximum of {} concurrent tasks...".format(self.domain, self.max_tasks))
-            self.logger("Wordlist loaded, brute forcing {} DNS records".format(self.word_count))
+            self.logger("Wordlist loaded, brute forcing {} DNS records".format(self.sub_gen_count))
             # TODO: enable verbose
-            self.pbar = tqdm(total=self.word_count, unit="records", maxinterval=0.1, mininterval=0)
             if recursive:
                 self.logger("Using recursive DNS with the following servers: {}".format(self.resolver.nameservers))
             else:
