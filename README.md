@@ -17,7 +17,6 @@ https://github.com/SimplySecurity/SimplyDomain/blob/master/CHNAGELOG.md
 [HELP/QUESTIONS/CHAT] Join us at: https://simplysecurity.herokuapp.com
 
 ### TL;DR
-
 #### Via cURL
 ```bash
 root@kali:~# curl -s https://raw.githubusercontent.com/SimplySecurity/SimplyDomain/master/setup/oneline-setup.sh | bash
