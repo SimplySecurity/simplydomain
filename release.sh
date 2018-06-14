@@ -39,3 +39,5 @@ docker push $USERNAME/$IMAGE:latest
 echo "Docker image pushed: $USERNAME/$IMAGE:latest"
 docker push $USERNAME/$IMAGE:$VERSION
 echo "Docker image pushed: $USERNAME/$IMAGE:$VERSION"
+
+./publish.sh
