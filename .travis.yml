@@ -1,5 +1,5 @@
 # sudo false implies containerized builds
-sudo: ture
+sudo: false
 language: python
 python:
   - 3.6
@@ -7,13 +7,8 @@ install:
   - pip install nose
   - pip install coverage
   - pip install coveralls
+  - pip install .
 script:
-  - git clone https://github.com/SimplySecurity/SimplyDomain.git
-  - cd SimplyDomain/setup/
-  - pip install -r requirements.txt
-  - cd ..
-  - python3 SimplyDomain.py -h
-  - nosetests --with-coverage
-after_success:
-   - coveralls
+  - simply_domain.py -h
+
   

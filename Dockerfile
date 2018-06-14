@@ -5,21 +5,15 @@
 # -----BUILD ENTRY-----
 
 # image base
-FROM python:alpine3.6
+FROM python:3
 
 # author
 MAINTAINER Killswitch-GUI
 ADD VERSION .
 LABEL description="Dockerfile base for SimplyDomain."
 
-RUN apk add --no-cache bash git g++ make && \
-git clone --branch master https://github.com/SimplySecurity/SimplyDomain.git && \
-cd SimplyDomain && \
-pip3 install -r setup/requirements.txt
-ENV HOME=/SimplyDomain
+RUN python3 -m pip install simplydomain
 
-# set working startup dir
-WORKDIR "/SimplyDomain"
-ENTRYPOINT ["python", "SimplyDomain.py"]
+ENTRYPOINT ["simply_domain.py"]
 
 # -----END OF BUILD-----

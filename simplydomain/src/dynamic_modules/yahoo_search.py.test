@@ -1,0 +1,113 @@
+import time
+from urllib.parse import urlparse
+
+from bs4 import BeautifulSoup
+from src import core_serialization
+from src import module_helpers
+
+from src import core_scrub
+
+
+# use RequestsHelpers() class to make requests to target URL
+class DynamicModule(module_helpers.RequestsHelpers):
+    """
+    Dynamic module class that will be loaded and called
+    at runtime. This will allow modules to easily be independent of the
+    core runtime.
+    """
+
+    def __init__(self, json_entry):
+        """
+        Init class structure. Each module takes a JSON entry object which
+        can pass different values to the module with out changing up the API.
+        adapted form  Empire Project:
+        https://github.com/EmpireProject/Empire/blob/master/lib/modules/python_template.py
+
+        :param json_entry: JSON data object passed to the module.
+        """
+        module_helpers.RequestsHelpers.__init__(self)
+        self.json_entry = json_entry
+        self.info = {
+            # mod name
+            'Module': 'yahoo_search.py',
+
+            # long name of the module to be used
+            'Name': 'Yahoo Subdomain Search',
+
+            # version of the module to be used
+            'Version': '1.0',
+
+            # description
+            'Description': ['Uses yahoo search engine',
+                            'with unofficial search engine API support.'],
+
+            # authors or sources to be quoted
+            'Authors': ['@Killswitch-GUI'],
+
+            # list of resources or comments
+            'comments': [
+                'https://search.yahoo.com/search?p='
+            ]
+        }
+
+        self.options = {
+
+            'url': 'http://www.bing.com/search?q=site%3A%s&first=%s'
+        }
+
+    def dynamic_main(self, queue_dict):
+        """
+        Main entry point for process to call.
+
+        core_serialization.SubDomain Attributes:
+            name: long name of method
+            module_name: name of the module that performed collection
+            source: source of the subdomain or resource of collection
+            module_version: version from meta
+            source: source of the collection
+            time: time the result obj was built
+            subdomain: subdomain to use
+            valid: is domain valid
+
+        :return: NONE
+        """
+        foundsubdomains = []
+        core_args = self.json_entry['args']
+        task_output_queue = queue_dict['task_output_queue']
+        cs = core_scrub.Scrub()
+        start_count = int(self.json_entry['yahoo_search']['start_count'])
+        end_count = int(self.json_entry['yahoo_search']['end_count'])
+        quantity = int(self.json_entry['yahoo_search']['quantity'])
+        while start_count <= end_count:
+            domain = "https://search.yahoo.com/search?p=" + str(core_args.DOMAIN) + "&b=" + \
+                     str(start_count) + "&pz=" + str(quantity)
+            data, status = self.request_content(domain)
+            soup = BeautifulSoup(data, 'html.parser')
+            for i in soup.find_all('a', href=True):
+                possiblesubdomain = i['href']
+                if "." + str(core_args.DOMAIN) in possiblesubdomain:
+                    d, s = self.request_raw(possiblesubdomain)
+                    if s and "." + str(core_args.DOMAIN) in d.url:
+                        parsed = urlparse(d.url)
+                        if parsed.netloc not in foundsubdomains:
+                            foundsubdomains.append(str(parsed.netloc))
+                        if parsed.hostname not in foundsubdomains:
+                            foundsubdomains.append(str(parsed.hostname))
+            for sub in foundsubdomains:
+                cs.subdomain = sub
+                # check if domain name is valid
+                valid = cs.validate_domain()
+                # build the SubDomain Object to pass
+                sub_obj = core_serialization.SubDomain(
+                    self.info["Name"],
+                    self.info["Module"],
+                    self.options['url'],
+                    domain,
+                    time.time(),
+                    sub,
+                    valid
+                )
+                task_output_queue.put(sub_obj)
+                # results inc at rate of 10 per page
+            start_count += 10
+            time.sleep(1)
