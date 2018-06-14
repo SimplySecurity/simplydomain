@@ -56,7 +56,6 @@ class DynamicModule(module_helpers.RequestsHelpers):
             'count'
         }
 
-
     def dynamic_main(self, queue_dict):
         """
         Main entry point for process to call.
@@ -80,7 +79,8 @@ class DynamicModule(module_helpers.RequestsHelpers):
         start_count = int(self.json_entry['bing_search']['start_count'])
         end_count = int(self.json_entry['bing_search']['end_count'])
         while start_count <= end_count:
-            domain = "http://www.bing.com/search?q=site%3A" + str(core_args.DOMAIN) + "&first=" + str(start_count)
+            domain = "http://www.bing.com/search?q=site%3A" + \
+                str(core_args.DOMAIN) + "&first=" + str(start_count)
             data, status = self.request_content(domain)
             soup = BeautifulSoup(data, 'html.parser')
             for i in soup.find_all('a', href=True):

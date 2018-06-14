@@ -1,5 +1,6 @@
 from tqdm import tqdm
 
+
 class CoreProgress(object):
 
     """
@@ -43,7 +44,8 @@ class CoreProgress(object):
         :param count: count of modules
         :return: NONE
         """
-        self.progress_bar = tqdm(total=count, unit="module", maxinterval=maxinterval, mininterval=mininterval)
+        self.progress_bar = tqdm(
+            total=count, unit="module", maxinterval=maxinterval, mininterval=mininterval)
 
     def inc_progress_bar(self, size=0):
         """
@@ -55,4 +57,3 @@ class CoreProgress(object):
             self.progress_bar.update(size)
         else:
             self.progress_bar.update()
-

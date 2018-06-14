@@ -11,7 +11,7 @@ class DynamicModule(object):
         can pass different values to the module with out changing up the API.
         adapted form  Empire Project:
         https://github.com/EmpireProject/Empire/blob/master/lib/modules/python_template.py
-        
+
         :param json_entry: JSON data object passed to the module.
         """
         self.json_entry = json_entry

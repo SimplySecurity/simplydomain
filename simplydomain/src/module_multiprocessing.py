@@ -46,7 +46,8 @@ class ModuleMultiProcessing(object):
         for p in self.module_procs:
             pid = p.pid
             p_name = p.name
-            print("[!] Process info: (PID: %s) (NAME: %s)" % (str(pid), str(p_name)))
+            print("[!] Process info: (PID: %s) (NAME: %s)" %
+                  (str(pid), str(p_name)))
 
     def module_check_active(self):
         """

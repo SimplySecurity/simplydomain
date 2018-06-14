@@ -77,18 +77,18 @@ class DynamicModule(module_helpers.RequestsHelpers):
 
         data = DNSDumpsterAPI().search(str(core_args.DOMAIN))
         for d in data['dns_records']['host']:
-                cs.subdomain = d['domain']
-                # check if domain name is valid
-                valid = cs.validate_domain()
-                # build the SubDomain Object to pass
-                sub_obj = core_serialization.SubDomain(
-                    self.info["Name"],
-                    self.info["Module"],
-                    self.options['url'],
-                    self.info["Version"],
-                    time.time(),
-                    d['domain'],
-                    valid
-                )
-                # populate queue with return data object
-                task_output_queue.put(sub_obj)
+            cs.subdomain = d['domain']
+            # check if domain name is valid
+            valid = cs.validate_domain()
+            # build the SubDomain Object to pass
+            sub_obj = core_serialization.SubDomain(
+                self.info["Name"],
+                self.info["Module"],
+                self.options['url'],
+                self.info["Version"],
+                time.time(),
+                d['domain'],
+                valid
+            )
+            # populate queue with return data object
+            task_output_queue.put(sub_obj)

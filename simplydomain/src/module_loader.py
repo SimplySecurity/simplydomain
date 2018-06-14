@@ -10,6 +10,7 @@ class LoadModules(object):
     Loads modules from the "modules" directory allowing
     operators to drop modules into the folder.
     """
+
     def __init__(self):
         """
         Create objects used in class.
@@ -36,7 +37,8 @@ class LoadModules(object):
         for name in glob.glob(path):
             if name.endswith(".py") and ("__init__" not in name) \
                     and ("module_template" not in name):
-                quick_path = os.path.join('simplydomain', 'src', 'dynamic_modules', name.split('/')[-1])
+                quick_path = os.path.join(
+                    'simplydomain', 'src', 'dynamic_modules', name.split('/')[-1])
                 module_name = quick_path.replace("/", ".").rstrip('.py')
                 loaded_modules = self.dynamic_import(module_name)
                 self.modules[quick_path] = loaded_modules
@@ -58,7 +60,8 @@ class LoadModules(object):
         for name in glob.glob(path):
             if name.endswith(".py") and ("__init__" not in name) \
                     and ("module_template" not in name):
-                quick_path = os.path.join('simplydomain', 'src', 'static_modules', name.split('/')[-1])
+                quick_path = os.path.join(
+                    'simplydomain', 'src', 'static_modules', name.split('/')[-1])
                 module_name = quick_path.replace("/", ".").rstrip('.py')
                 loaded_modules = self.dynamic_import(module_name)
                 self.static_modules[quick_path] = loaded_modules

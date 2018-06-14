@@ -1,5 +1,6 @@
 from validators import domain
 
+
 class Scrub(object):
 
     """
@@ -33,4 +34,3 @@ class Scrub(object):
         except Exception as e:
             # TODO: add in logger class for errors
             return False
-

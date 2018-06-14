@@ -4,9 +4,10 @@ from src import core_printer
 
 class TestCorePrinters(TestCase):
     p = core_printer.CorePrinters()
+
     def test_blue_text(self):
         msg1 = self.p.blue_text("test")
-        msg2  = "\x1b[34m [*] \x1b[0mtest"
+        msg2 = "\x1b[34m [*] \x1b[0mtest"
         self.assertEqual(msg1, msg2)
 
     def test_green_text(self):
@@ -28,4 +29,3 @@ class TestCorePrinters(TestCase):
 
     def test_print_modules(self):
         self.p.print_modules(['modules/bing_search.py'])
-

@@ -14,13 +14,17 @@ from simplydomain.src import core_logger
 # import json config..
 from simplydomain import config
 
+
 def _raw_depth_check(value):
     ivalue = int(value)
     if ivalue <= 0:
-        raise argparse.ArgumentTypeError("%s is an invalid positive int value" % value)
+        raise argparse.ArgumentTypeError(
+            "%s is an invalid positive int value" % value)
     if ivalue >= 6:
-        raise argparse.ArgumentTypeError("%s is too large of a keyspace for raw depth" % value)
+        raise argparse.ArgumentTypeError(
+            "%s is too large of a keyspace for raw depth" % value)
     return ivalue
+
 
 def cli_parse():
     """
@@ -41,8 +45,10 @@ def cli_parse():
                         action="store", default=3, type=_raw_depth_check)
     parser.add_argument("-m", "--module", help="module to hit",
                         action="store")
-    parser.add_argument("-o", "--output", help="output directory location (Ex. /users/test/)")
-    parser.add_argument("-on", "--output-name", help="output directory name (Ex. test-2017)",)
+    parser.add_argument(
+        "-o", "--output", help="output directory location (Ex. /users/test/)")
+    parser.add_argument("-on", "--output-name",
+                        help="output directory name (Ex. test-2017)",)
     parser.add_argument("-l", "--list", help="list loaded modules",
                         action="store_true")
     parser.add_argument("-ll", "--long-list", help="list loaded modules and info about each module",
@@ -66,7 +72,8 @@ def load_config(pr):
     ds = module_resolvers.DnsServers()
     ds.populate_servers()
     json_file = ds.populate_config(json_file)
-    print(pr.blue_text('Public DNS resolvers populated: (SERVER COUNT: %s)' % (str(ds.count_resolvers()))))
+    print(pr.blue_text('Public DNS resolvers populated: (SERVER COUNT: %s)' %
+                       (str(ds.count_resolvers()))))
     return json_file
 
 
