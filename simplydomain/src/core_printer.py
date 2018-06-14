@@ -1,6 +1,7 @@
 from termcolor import colored, cprint
 import json
 
+
 class CorePrinters(object):
     """
     Core class: handles all data output within the project.
@@ -35,6 +36,7 @@ class CorePrinters(object):
  |   STATIC MODULES INITIALIZATION  |
  *----------------------------------*
     """
+
     def __init__(self):
         """
         INIT class object and define
@@ -43,7 +45,8 @@ class CorePrinters(object):
         self.print_green = lambda x: cprint(x, 'green')
         self.print_green_on_bold = lambda x: cprint(x, 'green', attrs=['bold'])
         self.print_yellow = lambda x: cprint(x, 'yellow')
-        self.print_yellow_on_bold = lambda x: cprint(x, 'yellow', attrs=['bold'])
+        self.print_yellow_on_bold = lambda x: cprint(
+            x, 'yellow', attrs=['bold'])
         self.print_red = lambda x: cprint(x, 'red')
         self.print_red_on_bold = lambda x: cprint(x, 'red', attrs=['bold'])
         self.print_white = lambda x: cprint(x, 'white')
@@ -130,6 +133,7 @@ class CorePrinters(object):
             dm = dynamic_module.DynamicModule()
             parts = mod.split("/")
             name = 'modules/' + parts[-1]
-            self.print_yellow_on_bold(" %s" % ('{0: <24}'.format(name).ljust(40)))
+            self.print_yellow_on_bold(
+                " %s" % ('{0: <24}'.format(name).ljust(40)))
             print(json.dumps(dm.info, indent=4))
             print("-" * 60)

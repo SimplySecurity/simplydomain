@@ -55,7 +55,7 @@ class DynamicModule(object):
     def dynamic_main(self, queue_dict):
         """
         Main entry point for process to call.
-    
+
         core_serialization.SubDomain Attributes:
             name: long name of method
             module_name: name of the module that performed collection 

@@ -3,6 +3,7 @@ import json
 
 from . import module_helpers
 
+
 class DnsServers(module_helpers.RequestsHelpers):
 
     """
@@ -11,7 +12,6 @@ class DnsServers(module_helpers.RequestsHelpers):
     """
 
     def __init__(self):
-
         """
         Init class structure.
         """
@@ -25,7 +25,8 @@ class DnsServers(module_helpers.RequestsHelpers):
         Populate server list.
         :return: NONE
         """
-        data, status = self.request_json('https://public-dns.info/nameserver/us.json')
+        data, status = self.request_json(
+            'https://public-dns.info/nameserver/us.json')
         if status:
             data = json.loads(data)
             for d in data:
@@ -41,7 +42,6 @@ class DnsServers(module_helpers.RequestsHelpers):
         """
         json_config['resolvers'] = self.nameserver_ips
         return json_config
-
 
     def clean_servers(self):
         """
@@ -59,5 +59,3 @@ class DnsServers(module_helpers.RequestsHelpers):
         :return: INT nameserver list count
         """
         return len(self.nameserver_ips)
-
-

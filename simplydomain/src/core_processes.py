@@ -36,7 +36,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         self.progress_bar_pickup = mp.Queue()
 
         # output handlers
-        self.serialize_json_output = core_serialization.SerializeJSON(self.config)
+        self.serialize_json_output = core_serialization.SerializeJSON(
+            self.config)
 
     def _configure_mp(self):
         """
@@ -48,7 +49,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         # SPAWN is slower since it creates a entire python
         # interpter
 
-        self.logger.infomsg('setting MP to SPAWN for cross platform support', 'CoreRuntime')
+        self.logger.infomsg(
+            'setting MP to SPAWN for cross platform support', 'CoreRuntime')
         self.mp.set_start_method('spawn')
 
     def _configure_processes(self, mod_count):
@@ -58,14 +60,14 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         None values (PILLS)
         :return: NONE
         """
-        self.logger.infomsg('current # of modules loaded: ' + \
-            str(mod_count), 'CoreProcess')
-        self.logger.infomsg('current # of processors of SYSTEM: ' + \
-            str(self.processors), 'CoreProcess')
+        self.logger.infomsg('current # of modules loaded: ' +
+                            str(mod_count), 'CoreProcess')
+        self.logger.infomsg('current # of processors of SYSTEM: ' +
+                            str(self.processors), 'CoreProcess')
         if self.processors > mod_count:
-            self.logger.infomsg('setting MP count of: ' + \
-                str(mod_count), 'CoreProcess')
-            self.processors = mod_count 
+            self.logger.infomsg('setting MP count of: ' +
+                                str(mod_count), 'CoreProcess')
+            self.processors = mod_count
         # populate the PILL == None
         for p in range(self.processors + 1):
             self.task_queue.put(None)
@@ -80,19 +82,20 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         while True:
             item = self.task_output_queue.get()
             if item:
-                self.logger.debugmsg('_task_output_queue_consumer recv a subdomain: ' \
-                    + str(item.subdomain), 'CoreProcess')
+                self.logger.debugmsg('_task_output_queue_consumer recv a subdomain: '
+                                     + str(item.subdomain), 'CoreProcess')
                 msg = self.green_text("Subdomain: %s Vaild: (%s)" %
                                       ('{0: <30}'.format('('+str(item.subdomain)+')'), str(item.valid)))
                 if not self.config['silent']:
                     self.progress_print(msg)
                 self.serialize_json_output.add_subdomain(item)
             if item == None:
-                self.logger.infomsg('_task_output_queue_consumer is (NONE) exiting thread', 'CoreProcess')
+                self.logger.infomsg(
+                    '_task_output_queue_consumer is (NONE) exiting thread', 'CoreProcess')
                 break
             if self.task_output_queue.empty():
                 pass
-                #time.sleep(0.1)
+                # time.sleep(0.1)
 
     def populate_task_queue(self, modules):
         """
@@ -110,8 +113,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         else:
             for mod in modules:
                 # populate the q with module data
-                self.logger.infomsg('adding module to task queue: ' + \
-                    str(mod), 'CoreProcess')
+                self.logger.infomsg('adding module to task queue: ' +
+                                    str(mod), 'CoreProcess')
                 self.task_queue.put(mod)
         self.module_count = len(modules)
         self._configure_processes(len(modules))
@@ -127,7 +130,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
             obj = self.task_queue.get()
             del obj
         # allow GC to pick up and flush pipe
-        self.logger.infomsg('clear_task_queue() completed empty', 'CoreProcess')
+        self.logger.infomsg(
+            'clear_task_queue() completed empty', 'CoreProcess')
         self.task_queue.close()
 
     def _pbar_thread(self):
@@ -155,7 +159,6 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
                         self.progress_print(self.blue_text(dm[1]))
                 if self.progress_bar_pickup.empty():
                     time.sleep(0.1)
-
 
     def _start_thread_function(self, pointer):
         """
@@ -189,27 +192,33 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         Attempt to clean up threads before bail.
         :return: NONE
         """
-        self.logger.infomsg('tasked to stop_threads() putting (NONE)', 'CoreProcess')
+        self.logger.infomsg(
+            'tasked to stop_threads() putting (NONE)', 'CoreProcess')
         self.task_output_queue.put(None)
         for t in self.threads:
-            self.logger.infomsg('Attempting to shutting down thread in stop_threads()', 'CoreProcess')
+            self.logger.infomsg(
+                'Attempting to shutting down thread in stop_threads()', 'CoreProcess')
             t.join
         self.print_red("[!] All consumer threads have been joined")
-        self.logger.infomsg('All consumer threads joined in stop_threads()', 'CoreProcess')
+        self.logger.infomsg(
+            'All consumer threads joined in stop_threads()', 'CoreProcess')
 
     def join_threads(self):
         """
         Attempt to clean up threads before bail.
         :return: NONE
         """
-        self.logger.infomsg('tasked to join_threads() putting (NONE)', 'CoreProcess')
+        self.logger.infomsg(
+            'tasked to join_threads() putting (NONE)', 'CoreProcess')
         self.task_output_queue.put(None)
         while True:
             if self.task_output_queue.empty() == True:
-                self.logger.infomsg('self.task_output_queue is empty! breaking loop', 'CoreProcess')
+                self.logger.infomsg(
+                    'self.task_output_queue is empty! breaking loop', 'CoreProcess')
                 break
             else:
-                self.logger.infomsg('self.task_output_queue not empty sleeping for 1 second', 'CoreProcess')
+                self.logger.infomsg(
+                    'self.task_output_queue not empty sleeping for 1 second', 'CoreProcess')
                 time.sleep(1)
         for t in self.threads:
             t.join
@@ -226,12 +235,15 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         """
         self._start_threads()
         for _ in range(self.processors):
-            self.logger.infomsg('start_processes() is kicking off empty procs with queue objects', 'CoreProcess')
-            self.start_process(self.config, self.task_queue, self.task_output_queue, self.progress_bar_pickup)
+            self.logger.infomsg(
+                'start_processes() is kicking off empty procs with queue objects', 'CoreProcess')
+            self.start_process(self.config, self.task_queue,
+                               self.task_output_queue, self.progress_bar_pickup)
         for p in self.procs:
             p.daemon = True
             p.start()
-            self.logger.infomsg('start_process() started proc with daemon mode', 'CoreProcess')
+            self.logger.infomsg(
+                'start_process() started proc with daemon mode', 'CoreProcess')
 
     def start_process(self, config, task_queue, task_output_queue, progress_bar_pickup):
         """
@@ -250,8 +262,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
             'task_output_queue': task_output_queue,
             'progress_bar_pickup': progress_bar_pickup
         }
-        self.logger.infomsg('start_process() built queue_dict and appending to self.mp.procs, current proc count: ' \
-            + str(len(self.procs)), 'CoreProcess')
+        self.logger.infomsg('start_process() built queue_dict and appending to self.mp.procs, current proc count: '
+                            + str(len(self.procs)), 'CoreProcess')
         self.procs.append(
             self.mp.Process(target=self.execute_processes,
                             args=(config, queue_dict, self.modules)))
@@ -268,31 +280,31 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
             q = queue_dict['task_queue'].get()
             pbq = queue_dict['progress_bar_pickup']
             if q == None:
-                self.logger.infomsg('execute_processes() dynamic module task_queue empty, EXITING process', 'CoreProcess')
+                self.logger.infomsg(
+                    'execute_processes() dynamic module task_queue empty, EXITING process', 'CoreProcess')
                 break
             dynamic_module = modules[q]
             try:
                 dm = dynamic_module.DynamicModule(config)
-                self.logger.infomsg('execute_processes() starting module: ' \
-                    + str(dm.info['Name']), 'CoreProcess')
-                msg = "Executing module: %s %s" %('{0: <22}'.format(
+                self.logger.infomsg('execute_processes() starting module: '
+                                    + str(dm.info['Name']), 'CoreProcess')
+                msg = "Executing module: %s %s" % ('{0: <22}'.format(
                     "("+dm.info['Module']+")"), "("+dm.info['Name']+")")
                 if not self.config['silent']:
                     pbq.put(['execute', msg])
                 # blocking
                 dm.dynamic_main(queue_dict)
-                self.logger.infomsg('execute_processes() completed module: ' \
-                    + str(dm.info['Name']), 'CoreProcess')
+                self.logger.infomsg('execute_processes() completed module: '
+                                    + str(dm.info['Name']), 'CoreProcess')
                 msg = "Module completed: %s %s" % (
                     '{0: <22}'.format("(" + dm.info['Module'] + ")"), "(" + dm.info['Name'] + ")")
                 if not self.config['silent']:
                     pbq.put(['complete', msg])
             except Exception as e:
-                self.logger.warningmsg('execute_processes hit fatal error: ' \
-                    + str(e), 'CoreProcess')
+                self.logger.warningmsg('execute_processes hit fatal error: '
+                                       + str(e), 'CoreProcess')
                 self.print_red(" [!] Module process failed: %s %s" % (
                     '{0: <22}'.format("(" + dm.info['Module'] + ")"), "(" + e + ")"))
-
 
     def execute_process(self, mod_name, config, queue_dict):
         """
@@ -305,7 +317,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         try:
             sm = static_module.DynamicModule(config)
             if not self.config['silent']:
-                self.print_green(" [*] Executing module: %s %s" %('{0: <22}'.format("("+sm.info['Module']+")"), "("+sm.info['Name']+")"))
+                self.print_green(" [*] Executing module: %s %s" % (
+                    '{0: <22}'.format("("+sm.info['Module']+")"), "("+sm.info['Name']+")"))
             sm.dynamic_main(queue_dict)
             if not self.config['silent']:
                 self.print_green(" [*] Module completed: %s %s" % (
@@ -321,8 +334,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         :return: int
         """
         _value = len(self.mp.active_children())
-        self.logger.infomsg('check_active_len() checking current active pids: ' \
-            + str(_value), 'CoreProcess')
+        self.logger.infomsg('check_active_len() checking current active pids: '
+                            + str(_value), 'CoreProcess')
         return _value
 
     def check_active(self):
@@ -331,10 +344,12 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         :return: BOOL
         """
         if len(self.mp.active_children()):
-            self.logger.infomsg('check_active() for MP pids: True','CoreProcess')
+            self.logger.infomsg(
+                'check_active() for MP pids: True', 'CoreProcess')
             return True
         else:
-            self.logger.infomsg('check_active() for MP pids: False','CoreProcess')
+            self.logger.infomsg(
+                'check_active() for MP pids: False', 'CoreProcess')
             return False
 
     def join_processes(self):
@@ -344,8 +359,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         :return: NONE
         """
         for p in self.procs:
-            self.logger.infomsg('join_processes() starting to join self.procs, current active: ' \
-                + str(len(self.procs)),'CoreProcess')
+            self.logger.infomsg('join_processes() starting to join self.procs, current active: '
+                                + str(len(self.procs)), 'CoreProcess')
             p.join()
 
     def list_processes(self):
@@ -356,7 +371,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         for p in self.procs:
             pid = p.pid
             p_name = p.name
-            self.print_yellow("[!] Process info: (PID: %s) (NAME: %s)" % (str(pid), str(p_name)))
+            self.print_yellow(
+                "[!] Process info: (PID: %s) (NAME: %s)" % (str(pid), str(p_name)))
 
     def list_processes_exitcode(self):
         """
@@ -366,7 +382,8 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
         for p in self.procs:
             pid = p.pid
             ec = p.exitcode
-            self.print_yellow("[!] Process info: (PID: %s) (EXITCODE: %s)" % (str(pid), str(ec)))
+            self.print_yellow(
+                "[!] Process info: (PID: %s) (EXITCODE: %s)" % (str(pid), str(ec)))
 
     def kill_processes(self):
         """
@@ -379,5 +396,5 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
             p_name = p.name
             while p.is_alive():
                 p.terminate()
-            self.print_red("[!] Process has been terminated: (PID: %s) (NAME: %s)" % (str(pid), str(p_name)))
-
+            self.print_red("[!] Process has been terminated: (PID: %s) (NAME: %s)" % (
+                str(pid), str(p_name)))

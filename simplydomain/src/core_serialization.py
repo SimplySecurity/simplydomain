@@ -1,13 +1,14 @@
 import json
 
+
 class SerializeJSON(object):
 
     """
     Core data handler for json output. Stores all final objects
     and allows a standard way to ingest data from SimplyDomain.
-    
+
     Sample JSON Data Struc:
-    
+
     JSON_OUTPUT = {
         "meta_data": {
             "version": 0.1,
@@ -15,14 +16,14 @@ class SerializeJSON(object):
             "twitter": "Killswitch-GUI",
             "github_repo": "https://github.com/killswitch-GUI/SimplyDomain"
         },
-        
-        
+
+
         "args": {
             "domain": "google.com",
             "verbose": false,
             "debug": false
         },
-        
+
         "data": [
             {
                 "name": "cert search",
@@ -81,12 +82,13 @@ class SerializeJSON(object):
         json_str = json.dumps(self.subdomains, sort_keys=True, indent=4)
         print(json_str)
 
+
 class SubDomain(object):
 
     """
     Core data handler to clean, and post results in proper
     DataSerialization format for SimplyDomain.
-    
+
     Attributes:
         name: long name of method
         module_name: name of the module that performed collection 
@@ -112,7 +114,3 @@ class SubDomain(object):
         self.toolname = "SimplyDomain"
         self.subdomain = subdomain
         self.valid = valid
-
-
-
-

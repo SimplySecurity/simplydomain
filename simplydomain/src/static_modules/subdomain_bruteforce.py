@@ -15,6 +15,8 @@ from simplydomain.src import core_scrub
 from simplydomain.src import module_helpers
 
 # use RequestsHelpers() class to make requests to target URL
+
+
 class DynamicModule(module_helpers.RequestsHelpers):
     """
     Dynamic module class that will be loaded and called
@@ -110,7 +112,8 @@ class DynamicModule(module_helpers.RequestsHelpers):
         content, ret = h.request_text(
             'https://github.com/bitquark/dnspop/raw/master/results/bitquark_20160227_subdomains_popular_1000000')
         if not ret:
-            raise Exception('Failed to request bitquark top_1000000 sub domains.')
+            raise Exception(
+                'Failed to request bitquark top_1000000 sub domains.')
         # file_path = os.path.join(*self.json_entry['subdomain_bruteforce']['top_1000000'])
         # fancy iter so we can pull out only (N) lines
         sub_doamins = content.split()
@@ -120,7 +123,8 @@ class DynamicModule(module_helpers.RequestsHelpers):
             await self.sem.acquire()
             host = '{}.{}'.format(word.strip(), self.domain)
             task = asyncio.ensure_future(self._dns_lookup(host))
-            task.add_done_callback(functools.partial(self._dns_result_callback, host))
+            task.add_done_callback(functools.partial(
+                self._dns_result_callback, host))
             self.tasks.append(task)
         await asyncio.gather(*self.tasks, return_exceptions=True)
 
@@ -140,18 +144,24 @@ class DynamicModule(module_helpers.RequestsHelpers):
         :return: NONE
         """
         try:
-            self.logger("Brute forcing {} with a maximum of {} concurrent tasks...".format(self.domain, self.max_tasks))
-            self.logger("Wordlist loaded, brute forcing {} DNS records".format(self.word_count))
+            self.logger("Brute forcing {} with a maximum of {} concurrent tasks...".format(
+                self.domain, self.max_tasks))
+            self.logger(
+                "Wordlist loaded, brute forcing {} DNS records".format(self.word_count))
             # TODO: enable verbose
             if not self.silent:
-                self.pbar = tqdm(total=self.word_count, unit="records", maxinterval=0.1, mininterval=0)
+                self.pbar = tqdm(total=self.word_count,
+                                 unit="records", maxinterval=0.1, mininterval=0)
             if recursive:
-                self.logger("Using recursive DNS with the following servers: {}".format(self.resolver.nameservers))
+                self.logger("Using recursive DNS with the following servers: {}".format(
+                    self.resolver.nameservers))
             else:
-                domain_ns = self.loop.run_until_complete(self._dns_lookup(self.domain, 'NS'))
+                domain_ns = self.loop.run_until_complete(
+                    self._dns_lookup(self.domain, 'NS'))
                 self.logger(
                     "Setting nameservers to {} domain NS servers: {}".format(self.domain, [host.host for host in domain_ns]))
-                self.resolver.nameservers = [socket.gethostbyname(host.host) for host in domain_ns]
+                self.resolver.nameservers = [
+                    socket.gethostbyname(host.host) for host in domain_ns]
                 #self.resolver.nameservers = self.core_resolvers
             self.loop.run_until_complete(self._process_dns_wordlist())
         except KeyboardInterrupt:
@@ -163,7 +173,8 @@ class DynamicModule(module_helpers.RequestsHelpers):
             # TODO: enable verbose
             if not self.silent:
                 self.pbar.close()
-                self.logger("completed, {} subdomains found.".format(len(self.fqdn)))
+                self.logger(
+                    "completed, {} subdomains found.".format(len(self.fqdn)))
         return self.fqdn
 
     def logger(self, msg, msg_type='info', level=0):
@@ -173,7 +184,8 @@ class DynamicModule(module_helpers.RequestsHelpers):
             style = {'info': ('[*]', 'blue'), 'pos': ('[+]', 'green'), 'err': ('[-]', 'red'),
                      'warn': ('[!]', 'yellow'), 'dbg': ('[D]', 'cyan')}
             if msg_type is not 0:
-                decorator = click.style('{}'.format(style[msg_type][0]), fg=style[msg_type][1], bold=True)
+                decorator = click.style('{}'.format(
+                    style[msg_type][0]), fg=style[msg_type][1], bold=True)
             else:
                 decorator = ''
             m = " {} {}".format(decorator, msg)
@@ -194,15 +206,17 @@ class DynamicModule(module_helpers.RequestsHelpers):
                 err_num = future.exception().args[0]
                 err_text = future.exception().args[1]
             except IndexError:
-                self.logger("Couldn't parse exception: {}".format(future.exception()), 'err')
-            if (err_num == 4): # This is domain name not found, ignore it.
+                self.logger("Couldn't parse exception: {}".format(
+                    future.exception()), 'err')
+            if (err_num == 4):  # This is domain name not found, ignore it.
                 pass
-            elif (err_num == 12): # Timeout from DNS server
+            elif (err_num == 12):  # Timeout from DNS server
                 self.logger("Timeout for {}".format(name), 'warn', 2)
-            elif (err_num == 1): # Server answered with no data
+            elif (err_num == 1):  # Server answered with no data
                 pass
             else:
-                self.logger('{} generated an unexpected exception: {}'.format(name, future.exception()), 'err')
+                self.logger('{} generated an unexpected exception: {}'.format(
+                    name, future.exception()), 'err')
             self.errors.append({'hostname': name, 'error': err_text})
         # Output result
         else:

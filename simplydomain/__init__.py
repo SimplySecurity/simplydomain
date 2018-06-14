@@ -14,7 +14,7 @@ import argparse
 
 ##### SIMPLYDOMAIN API FUNCTIONS #####
 
-# STATICS 
+# STATICS
 __core_printer = core_printer.CorePrinters()
 __core_logger = core_logger.CoreLogging()
 __core_dns_servers = module_resolvers.DnsServers()
@@ -29,20 +29,26 @@ verbose: BOOL
 debug: BOOL
 """
 
+
 def __raw_depth_check(value):
     ivalue = int(value)
     if ivalue <= 0:
-        raise argparse.ArgumentTypeError("%s is an invalid positive int value" % value)
+        raise argparse.ArgumentTypeError(
+            "%s is an invalid positive int value" % value)
     if ivalue >= 6:
-        raise argparse.ArgumentTypeError("%s is too large of a keyspace for raw depth" % value)
+        raise argparse.ArgumentTypeError(
+            "%s is too large of a keyspace for raw depth" % value)
     return ivalue
+
 
 def __load_dns(config):
     __core_dns_servers.populate_servers()
     __core_dns_servers.populate_config(config)
 
+
 def __load_config():
     return config.__json_config
+
 
 def __set_logging(value):
     """
@@ -59,6 +65,7 @@ def __set_logging(value):
     if value == 'DEBUG':
         __core_logger.start(logging.DEBUG)
 
+
 def __parse_values(
         domain,
         debug,
@@ -67,7 +74,7 @@ def __parse_values(
         wordlist_count,
         raw_bruteforce,
         raw_depth
-        ):
+):
     parser = argparse.ArgumentParser()
     parser.add_argument("DOMAIN", help="domain to query")
     # opts
@@ -81,8 +88,10 @@ def __parse_values(
                         action="store", default=3, type=__raw_depth_check)
     parser.add_argument("-m", "--module", help="module to hit",
                         action="store")
-    parser.add_argument("-o", "--output", help="output directory location (Ex. /users/test/)")
-    parser.add_argument("-on", "--output-name", help="output directory name (Ex. test-2017)",)
+    parser.add_argument(
+        "-o", "--output", help="output directory location (Ex. /users/test/)")
+    parser.add_argument("-on", "--output-name",
+                        help="output directory name (Ex. test-2017)",)
     parser.add_argument("-v", "--verbose", help="increase output verbosity",
                         action="store_true")
     parser.add_argument("-d", "--debug", help="enable debug logging to .SimplyDns.log file, default WARNING only",
@@ -106,18 +115,19 @@ def __parse_values(
         args.append(str(domain))
     return parser.parse_args(args)
 
+
 def execute_raw_bruteforce(
-        domain,
-        config={},
-        dnsservers=[],
-        debug='CRITICAL', 
-        verbose=False, 
-        wordlist_count=0,
-        return_type='json',
-        wordlist_bruteforce=False,
-        raw_bruteforce=True,
-        raw_depth=2
-    ):
+    domain,
+    config={},
+    dnsservers=[],
+    debug='CRITICAL',
+    verbose=False,
+    wordlist_count=0,
+    return_type='json',
+    wordlist_bruteforce=False,
+    raw_bruteforce=True,
+    raw_depth=2
+):
     """
     executes the main search function of simplydomain:
     config: sets the JSON config settings for the opperation
@@ -140,22 +150,23 @@ def execute_raw_bruteforce(
         wordlist_count,
         raw_bruteforce,
         raw_depth
-        )
+    )
     cr = core_runtime.CoreRuntime(__core_logger, config)
     return cr.execute_raw_bruteforce(return_type=return_type)
 
+
 def execute_wordlist_bruteforce(
-        domain,
-        config={},
-        dnsservers=[],
-        debug='CRITICAL', 
-        verbose=False, 
-        wordlist_count=100,
-        return_type='json',
-        wordlist_bruteforce=True,
-        raw_bruteforce=False,
-        raw_depth=0
-    ):
+    domain,
+    config={},
+    dnsservers=[],
+    debug='CRITICAL',
+    verbose=False,
+    wordlist_count=100,
+    return_type='json',
+    wordlist_bruteforce=True,
+    raw_bruteforce=False,
+    raw_depth=0
+):
     """
     executes the main search function of simplydomain:
     config: sets the JSON config settings for the opperation
@@ -178,24 +189,23 @@ def execute_wordlist_bruteforce(
         wordlist_count,
         raw_bruteforce,
         raw_depth
-        )
+    )
     cr = core_runtime.CoreRuntime(__core_logger, config)
     return cr.execute_bruteforce(return_type=return_type)
-
 
 
 def execute_search(
         domain,
         config={},
         dnsservers=[],
-        debug='CRITICAL', 
-        verbose=False, 
-        wordlist_bruteforce=True, 
+        debug='CRITICAL',
+        verbose=False,
+        wordlist_bruteforce=True,
         wordlist_count=100,
         raw_bruteforce=True,
         raw_depth=3,
         return_type='json',
-        ):
+):
     """
     executes the main search function of simplydomain:
     config: sets the JSON config settings for the opperation
@@ -213,7 +223,7 @@ def execute_search(
         config = __load_config()
     if not dnsservers:
         dnsservers = __load_dns(config)
-    # now setup the config file 
+    # now setup the config file
     # in JSON format for the core
     # to use within simplydomain
     config['args'] = __parse_values(
@@ -224,14 +234,6 @@ def execute_search(
         wordlist_count,
         raw_bruteforce,
         raw_depth
-        )
+    )
     cr = core_runtime.CoreRuntime(__core_logger, config)
     return cr.execute_amp(return_type=return_type)
-
-
-
-
-
-
-
-
