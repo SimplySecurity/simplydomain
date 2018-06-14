@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/SimplySecurity/simplydomain-pkg.svg?branch=master)](https://travis-ci.org/SimplySecurity/simplydomain-pkg)
+[![codebeat badge](https://codebeat.co/badges/981ba393-f661-47d1-95dc-6aa5a3c87e2c)](https://codebeat.co/projects/github-com-simplysecurity-simplydomain-master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1da5e6c1c347559b6710/maintainability)](https://codeclimate.com/github/SimplySecurity/simplydomain/maintainability) 
  ![Alt text](simplydomain/docs/SimplyDomain-logo.png?raw=true "SimplyDomain")
 #### Table of Contents 
 ---
