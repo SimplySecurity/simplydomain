@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='simplydomain',
-      version='1.0.19',
+      version='2.0.1',
       description='simplydomain is a very basic framework to automate domain brute forcing.',
       url='http://github.com/SimplySecurity/simplydomain-pkg',
       author='Alexander Rymdeko-Harvey',

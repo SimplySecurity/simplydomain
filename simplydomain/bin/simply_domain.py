@@ -99,6 +99,7 @@ def main():
     if args.module:
         if not args.DOMAIN:
             parser.print_help()
+        config['silent'] = True
         c = core_runtime.CoreRuntime(logger, config)
         c.execute_mp()
     elif args.list:
@@ -110,6 +111,7 @@ def main():
     else:
         if not args.DOMAIN:
             parser.print_help()
+        config['silent'] = True
         c = core_runtime.CoreRuntime(logger, config)
         c.execute_mp()
 
