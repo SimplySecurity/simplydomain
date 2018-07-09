@@ -272,7 +272,7 @@ class DynamicModule(module_helpers.RequestsHelpers):
             if answers:
                 return True
         except Exception as e:
-            print(e)
+            pass
         return False
 
     def _dns_result_callback(self, name, future):
