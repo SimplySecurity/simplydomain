@@ -20,6 +20,17 @@ class RequestsHelpers(core_output.CoreOutput):
         core_output.CoreOutput.__init__(self)
         self.ua = UserAgent()
 
+    def get_dns_wildcard(self, domain):
+        try:
+            x = "*.{}".format(domain)
+            url = 'https://dns.google.com/resolve?name=%s&type=A' % (str(x))
+            headers = {"Accept": "application/json"}
+            response = requests.get(url,headers=headers,verify=True)
+            return response.json()
+        except Exception as e:
+            print(response.text)
+            return {}
+
     # split up json from raw for future support
     def request_json(self, url, return_code=200):
         """

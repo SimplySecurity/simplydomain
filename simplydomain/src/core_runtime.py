@@ -118,7 +118,8 @@ class CoreRuntime(module_loader.LoadModules,
         self.print_s_module_start()
         queue_dict = {
             'task_queue': self.task_queue,
-            'task_output_queue': self.task_output_queue
+            'task_output_queue': self.task_output_queue,
+            'subdomain_list': self.get_subdomain_list(),
         }
         if self.config['args'].wordlist_bruteforce:
             self.execute_process(
@@ -140,7 +141,8 @@ class CoreRuntime(module_loader.LoadModules,
             self._start_thread_function(self._pbar_thread)
             queue_dict = {
                 'task_queue': self.task_queue,
-                'task_output_queue': self.task_output_queue
+                'task_output_queue': self.task_output_queue,
+                'subdomain_list': self.get_subdomain_list(),
             }
             if self.config['args'].wordlist_bruteforce:
                 self.execute_process(
@@ -161,7 +163,7 @@ class CoreRuntime(module_loader.LoadModules,
             self._start_thread_function(self._pbar_thread)
             queue_dict = {
                 'task_queue': self.task_queue,
-                'task_output_queue': self.task_output_queue
+                'task_output_queue': self.task_output_queue,
             }
             if self.config['args'].raw_bruteforce:
                 self.execute_process(

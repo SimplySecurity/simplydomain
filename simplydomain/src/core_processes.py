@@ -7,23 +7,23 @@ import time
 from . import core_printer
 from . import core_progress
 from . import core_serialization
+from . import module_recursion
 
 
-class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
+class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress, module_recursion.ModuleRecursion):
     """
     Core class to handle threading and process 
     creation.
     """
 
     def __init__(self):
-        """
-        Init class.
-
-        Process creation steps:
-        1) populate_task_queue() - with modules
+        """class init
+        
+        setups for a full MP stack.
         """
         core_printer.CorePrinters.__init__(self)
         core_progress.CoreProgress.__init__(self)
+        module_recursion.ModuleRecursion.__init__(self)
         self.procs = []
         self.threads = []
         self.processors = mp.cpu_count()
@@ -89,6 +89,7 @@ class CoreProcess(core_printer.CorePrinters, core_progress.CoreProgress):
                 if not self.config['silent']:
                     self.progress_print(msg)
                 self.serialize_json_output.add_subdomain(item)
+                self.add_subdomain(item)
             if item == None:
                 self.logger.infomsg(
                     '_task_output_queue_consumer is (NONE) exiting thread', 'CoreProcess')

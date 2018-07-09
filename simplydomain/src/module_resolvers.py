@@ -40,7 +40,7 @@ class DnsServers(module_helpers.RequestsHelpers):
         :param json_config: start JSON config
         :return: json_config: final JSON config
         """
-        json_config['resolvers'] = self.nameserver_ips
+        json_config['resolvers'] = self.nameserver_ips[0:10]
         return json_config
 
     def clean_servers(self):
