@@ -4,6 +4,7 @@ import queue
 import asyncio
 import aiodns
 import functools
+# disable uvloop until supports windows
 import uvloop
 import socket
 import click
@@ -74,7 +75,8 @@ class DynamicModule(module_helpers.RequestsHelpers):
         self.errors = []
         self.fqdn = []
         self.runtime_queue = []
-        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+        # disable uvloop until supports windows
+        # asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
         self.loop = asyncio.get_event_loop()
         self.resolver = aiodns.DNSResolver(loop=self.loop, rotate=True)
         # TODO: make max tasks defined in config.json
