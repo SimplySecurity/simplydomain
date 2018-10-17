@@ -30,6 +30,7 @@ setup(name='simplydomain',
       ],
       install_requires=[
           'aiodns',
+		  'aiohttp',
           'beautifulsoup4',
           'crtsh',
           'dnsdumpster',
