@@ -30,7 +30,7 @@ fake_useragent == 0.1.10
 json2xml == 2.2.0
 
 # src/module_helpers.py: 1
-requests == 2.18.4
+requests == 2.20.0
 
 # setup/setup.py: 1
 setuptools == 32.2.0
