@@ -5,7 +5,7 @@ import asyncio
 import aiodns
 import functools
 # disable uvloop until supports windows
-import uvloop
+# import uvloop
 import socket
 import click
 import time
