@@ -1,0 +1,8 @@
+autodiscover.encomtech.net
+citrix.encomtech.net
+encomtech.net
+lyncdiscover.encomtech.net
+mail.encomtech.net
+msoid.encomtech.net
+sip.encomtech.net
+www.encomtech.net

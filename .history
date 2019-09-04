@@ -1,0 +1,19 @@
+hf mf rdbl 0 a ffffffffffff
+hf mf rdsc 0 a ffffffffffff
+hf mf mifare
+hf mf mifare
+hf mf mifare
+quit
+help
+hf
+hf
+hw tune
+hw tune
+hw tune
+hw tune
+hw tune
+hw tune
+hw tune
+hf 14a
+hw version
+quit

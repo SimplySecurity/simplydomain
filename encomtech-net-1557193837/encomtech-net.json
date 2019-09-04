@@ -1,0 +1,215 @@
+{
+    "args": {
+        "debug": false,
+        "domain": "encomtech.net",
+        "verbose": false
+    },
+    "data": [
+        {
+            "module_name": "virus_total.py",
+            "module_version": "https://www.virustotal.com/ui/domains/%s/subdomains",
+            "name": "Virus Total Subdomain Search",
+            "source": "1.0",
+            "subdomain": "mail.encomtech.net",
+            "time": 1557184319.1424341,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "virus_total.py",
+            "module_version": "https://www.virustotal.com/ui/domains/%s/subdomains",
+            "name": "Virus Total Subdomain Search",
+            "source": "1.0",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184319.1426492,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=1",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184319.253505,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "dnsdumpster_search.py",
+            "module_version": "https://dnsdumpster.com",
+            "name": "Python API for Dnsdumpster",
+            "source": "1.0",
+            "subdomain": "encomtech.net",
+            "time": 1557184319.8449721,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=11",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184320.038201,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=21",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184320.762511,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=31",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184321.638444,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=41",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184322.395355,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=51",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184323.280381,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=61",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184324.031577,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=71",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184324.778116,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=81",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184325.5136461,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "bing_search.py",
+            "module_version": "http://www.bing.com/search?q=site%3A%s&first=%scount",
+            "name": "Bing Subdomain Search",
+            "source": "http://www.bing.com/search?q=site%3Aencomtech.net&first=91",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184326.2586591,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "subdomain_bruteforce.py",
+            "module_version": "",
+            "name": "Recursive Subdomain Bruteforce Using Wordlist",
+            "source": "1.0",
+            "subdomain": "www.encomtech.net",
+            "time": 1557184335.842459,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "subdomain_bruteforce.py",
+            "module_version": "",
+            "name": "Recursive Subdomain Bruteforce Using Wordlist",
+            "source": "1.0",
+            "subdomain": "mail.encomtech.net",
+            "time": 1557184336.056353,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "subdomain_bruteforce.py",
+            "module_version": "",
+            "name": "Recursive Subdomain Bruteforce Using Wordlist",
+            "source": "1.0",
+            "subdomain": "lyncdiscover.encomtech.net",
+            "time": 1557184336.21666,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "subdomain_bruteforce.py",
+            "module_version": "",
+            "name": "Recursive Subdomain Bruteforce Using Wordlist",
+            "source": "1.0",
+            "subdomain": "sip.encomtech.net",
+            "time": 1557184339.607589,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "subdomain_bruteforce.py",
+            "module_version": "",
+            "name": "Recursive Subdomain Bruteforce Using Wordlist",
+            "source": "1.0",
+            "subdomain": "autodiscover.encomtech.net",
+            "time": 1557184340.3216908,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "subdomain_bruteforce.py",
+            "module_version": "",
+            "name": "Recursive Subdomain Bruteforce Using Wordlist",
+            "source": "1.0",
+            "subdomain": "citrix.encomtech.net",
+            "time": 1557184343.9657989,
+            "toolname": "SimplyDomain",
+            "valid": true
+        },
+        {
+            "module_name": "subdomain_bruteforce.py",
+            "module_version": "",
+            "name": "Recursive Subdomain Bruteforce Using Wordlist",
+            "source": "1.0",
+            "subdomain": "msoid.encomtech.net",
+            "time": 1557186663.567428,
+            "toolname": "SimplyDomain",
+            "valid": true
+        }
+    ],
+    "meta_data": {
+        "author": "Alexander Rymdeko-Harvey",
+        "github_repo": "https://github.com/killswitch-GUI/SimplyDomain",
+        "twitter": "Killswitch-GUI",
+        "version": 0.1
+    }
+}
