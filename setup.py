@@ -40,7 +40,7 @@ setup(name='simplydomain',
           'setuptools',
           'termcolor',
           'tqdm',
-          # Hold uv until windows support: 'uvloop',
+          'uvloop',
           'validators',
           'click'
       ],
