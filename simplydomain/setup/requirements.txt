@@ -33,7 +33,7 @@ json2xml == 2.2.0
 requests == 2.20.0
 
 # setup/setup.py: 1
-setuptools == 32.2.0
+setuptools == 65.5.1
 
 # src/core_printer.py: 1
 termcolor == 1.1.0
